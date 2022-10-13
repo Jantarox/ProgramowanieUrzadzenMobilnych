@@ -8,7 +8,8 @@ var c = canvas.getContext("2d");
 setInterval(draw, 10);
 var i = 0;
 
-var color = "green";
+var color1 = "green";
+var color2;
 
 function draw(){
 
@@ -16,23 +17,27 @@ function draw(){
     c.beginPath();
     c.arc(100, 100, 50, 0, 2 * Math.PI);
     if(i==100){
-        if(color === "green"){
-            color = "blue";
+        if(color1 === "green"){
+            color1 = "blue";
         }else{
-            color = "green";
+            color1 = "green";
         }
         i=0;
     }
-    c.fillStyle = color;
+    c.closePath();
+    c.fillStyle = color1;
     c.fill();
+    c.closePath();
     c.stroke();
 
     //Circle2
     c.beginPath();
     c.arc(300, 100, 50, 0, 2 * Math.PI);
-    color = 'rgba(255,0,0,0.2)';
-    c.fillStyle = color;
+    color2 = 'rgba(255,0,0,0.2)';
+    c.closePath();
+    c.fillStyle = color2;
     c.fill();
+   
     c.stroke();
 
     i++;
