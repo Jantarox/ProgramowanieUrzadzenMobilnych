@@ -7,18 +7,18 @@ var c = canvas.getContext("2d");
 
 setInterval(draw, 1000);
 
+var color = "green";
+
 
 function draw(){
-    var now = new Date();
-    
-    
-    var second = now.getSeconds();
     c.beginPath();
     c.arc(400, 300, 200, 0, 2 * Math.PI);
     
-    var color = "green";
-    if(second%2){
+    
+    if(color === "green"){
         color = "blue";
+    }else{
+        color = "green";
     }
        
     c.fillStyle = color;
