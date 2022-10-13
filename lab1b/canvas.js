@@ -12,21 +12,21 @@ di = 1;
 var color1 = "green";
 var color2 = 'rgba(255,0,0,0)';
 
+var y = 100;
+var dy = 5;
+
 function draw(){
     i+=di;
 
     //Circle1
     c.beginPath();
     c.arc(100, 100, 50, 0, 2 * Math.PI);
-    if(i==100){
-        if(color1 === "green"){
-            color1 = "blue";
-        }else{
-            color1 = "green";
-        }
-        di = -di;
+    if(i > 50){
+        color1 = "blue";
+    }else{
+        color1 = "green";
     }
-    if(i==0){
+    if(i==0 || i==100){
         di = -di;
     }
     c.closePath();
@@ -48,11 +48,15 @@ function draw(){
     //Circle3
     c.beginPath();
     colorGradient = i*255/100;
-    c.arc(500, 100, 50, 0, 2 * Math.PI);
+    c.arc(500, y, 50, 0, 2 * Math.PI);
     color2 = `rgba(0,${255-colorGradient},${colorGradient},1)`;
     c.closePath();
     c.fillStyle = color2;
     c.fill();
     c.stroke();
-    
+
+    if(y > 600 || y < 0){
+        dy = -dy;
+    }
+    y+=dy;
 }
