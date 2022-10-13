@@ -13,7 +13,7 @@ var color1 = "green";
 var color2 = 'rgba(255,0,0,0)';
 
 var y = 100;
-var dy = 5;
+var dy = 4;
 var a = 0.2;
 
 function draw(){
@@ -58,7 +58,7 @@ function draw(){
     c.stroke();
 
     if(y > 600 - 50 || y < 0 + 50){
-        dy = -dy;
+        dy = -dy - a;
     }
     dy+=a;
     y+=dy;
