@@ -43,8 +43,16 @@ function draw(){
     c.closePath();
     c.fillStyle = color2;
     c.fill();
-   
     c.stroke();
 
+    //Circle3
+    c.beginPath();
+    colorGradient = i*255/100;
+    c.arc(500, 100, 50, 0, 2 * Math.PI);
+    color2 = `rgba(0,${255-colorGradient},${colorGradient},1)`;
+    c.closePath();
+    c.fillStyle = color2;
+    c.fill();
+    c.stroke();
     
 }
