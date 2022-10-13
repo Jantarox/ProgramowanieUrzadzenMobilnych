@@ -60,7 +60,6 @@ function draw(){
     if(y > 600 - 50 || y < 0 + 50){
         dy = -dy;
     }
-    dy += a;
+    dy+=a;
     y+=dy;
-    
 }
