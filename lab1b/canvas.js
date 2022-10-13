@@ -19,6 +19,7 @@ function draw(){
     i+=di;
 
     //Circle1
+    c.clearRect(0, 0, innerWidth, innerHeight);
     c.beginPath();
     c.arc(100, 100, 50, 0, 2 * Math.PI);
     if(i > 50){
