@@ -14,6 +14,7 @@ var color2 = 'rgba(255,0,0,0)';
 
 var y = 100;
 var dy = 5;
+var a = 0.2;
 
 function draw(){
     i+=di;
@@ -59,5 +60,7 @@ function draw(){
     if(y > 600 - 50 || y < 0 + 50){
         dy = -dy;
     }
+    dy += a;
     y+=dy;
+    
 }
