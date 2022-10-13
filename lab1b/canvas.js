@@ -7,11 +7,13 @@ var c = canvas.getContext("2d");
 
 setInterval(draw, 10);
 var i = 0;
+di = 1;
 
 var color1 = "green";
-var color2;
+var color2 = 'rgba(255,0,0,0)';
 
 function draw(){
+    i+=di;
 
     //Circle1
     c.beginPath();
@@ -22,7 +24,10 @@ function draw(){
         }else{
             color1 = "green";
         }
-        i=0;
+        di = -di;
+    }
+    if(i==0){
+        di = -di;
     }
     c.closePath();
     c.fillStyle = color1;
@@ -32,13 +37,14 @@ function draw(){
 
     //Circle2
     c.beginPath();
+    colorGradient = i*255/100;
     c.arc(300, 100, 50, 0, 2 * Math.PI);
-    color2 = 'rgba(255,0,0,0.2)';
+    color2 = `rgba(0,${255-colorGradient},${colorGradient},1)`;
     c.closePath();
     c.fillStyle = color2;
     c.fill();
    
     c.stroke();
 
-    i++;
+    
 }
