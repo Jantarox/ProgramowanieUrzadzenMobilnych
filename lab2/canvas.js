@@ -40,13 +40,14 @@ function Circle(x, y, dx, dy, r) {
                 this.x - this.r < rect.x + rect.width &&
                 this.y - this.r < rect.y + rect.height &&
                 this.y + this.r > rect.y) {
-                    if(this.x < rect.x || this.x > rect.x + rect.width){
-                        this.dx *= -1;
-                    }
                     if(this.y < rect.y || this.y > rect.y + rect.height){
                         this.dy *= -1;
                         this.dy *= 0.8;
                     }
+                    else if(this.x < rect.x || this.x > rect.x + rect.width){
+                        this.dx *= -1;
+                    }
+                    
                     
             }
         })
