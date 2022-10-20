@@ -24,12 +24,16 @@ function Circle(x, y, dx, dy, r){
     }
 
     this.update = function(){
-        if (this.x > innerWidth - this.r || this.x < this.r) {
+        if (this.x > canvas.width - this.r || this.x < this.r) {
             this.dx *= -1;
         }
-        if (this.y > innerHeight - this.r || this.y < this.r) {
+        if (this.y > canvas.height - this.r || this.y < this.r) {
             this.dy *= -1;
         }
+
+        this.x += this.dx;
+        this.y += this.dy
+
         this.draw();
     }
 }
@@ -57,6 +61,7 @@ var circle = new Circle(20, 20, 10, 0, 20);
 
 function draw(){
     i+=di;
+    c.clearRect(0, 0, innerWidth, innerHeight);
 
     
 
