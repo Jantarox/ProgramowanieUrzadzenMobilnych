@@ -38,11 +38,19 @@ function Rectangle(x, y, width, height){
     }
 }
 
+var rects = [];
+function drawRects(){
+    rects.forEach(rect => rect.draw())
+}
+
 function draw(){
     i+=di;
 
+    
+
+
     var circle = new Circle(20, 20, 0, 0, 20);
     circle.draw();
-    var rect = new Rectangle(100, 100, 20, 40);
-    rect.draw();
+
+    drawRects();
 }
