@@ -52,5 +52,10 @@ function draw(){
     var circle = new Circle(20, 20, 0, 0, 20);
     circle.draw();
 
+    rects.push(new Rectangle(700, 100, 100, 100))
+    rects.push(new Rectangle(600, 200, 200, 100))
+    rects.push(new Rectangle(500, 300, 300, 100))
+    rects.push(new Rectangle(400, 400, 400, 100))
+    rects.push(new Rectangle(300, 500, 500, 100))
     drawRects();
 }
