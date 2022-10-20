@@ -47,8 +47,6 @@ function Circle(x, y, dx, dy, r) {
                     else if(this.x < rect.x || this.x > rect.x + rect.width){
                         this.dx *= -1;
                     }
-                    
-                    
             }
         })
 
@@ -77,25 +75,29 @@ function drawRects() {
     rects.forEach(rect => rect.draw())
 }
 
-var circle = new Circle(750, 20, 1, 0, 20);
+var circle;
 
-rects.push(new Rectangle(300, 500, 500, 100))
-rects.push(new Rectangle(700, 100, 100, 100))
-rects.push(new Rectangle(600, 200, 200, 100))
-rects.push(new Rectangle(500, 300, 300, 100))
-rects.push(new Rectangle(400, 400, 400, 100))
+
+
+
 
 function draw() {
     i += di;
     c.clearRect(0, 0, innerWidth, innerHeight);
-
-
-
-
-
-
-    
-
-    circle.update();
+    if(i==100){
+        rects.push(new Rectangle(300, 500, 500, 100))
+    }else if(i==200){
+        rects.push(new Rectangle(400, 400, 400, 100))
+    }else if(i==300){
+        rects.push(new Rectangle(500, 300, 300, 100))
+    }else if(i==400){
+        rects.push(new Rectangle(600, 200, 200, 100))
+    }else if(i==500){
+        rects.push(new Rectangle(700, 100, 100, 100))
+    }else if(i==600){
+        circle = new Circle(750, 20, 1, 0, 20);
+    }else if(i>600){
+        circle.update();
+    }
     drawRects();
 }
