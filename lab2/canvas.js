@@ -34,12 +34,12 @@ function Circle(x, y, dx, dy, r){
             this.dy *= -1;
             this.dy *= 0.8;
         }
-
         rects.forEach(rect => {
-            if (this.x + this.r > rect.x && this.x - r < rect.w) {
+            
+            if (this.x + this.r > rect.x && this.x - r < rect.x + rect.w) {
                 this.dx *= -1;
             }
-            if (this.y + this.r > rect.y && this.y - r < rect.h) {
+            if (this.y + this.r > rect.y && this.y - r < rect.y + rect.h) {
                 this.dx *= -1;
             }
         })
@@ -71,6 +71,8 @@ function drawRects(){
 
 var circle = new Circle(20, 20, 1, 0, 20);
 
+rects.push(new Rectangle(300, 500, 500, 100))
+
 function draw(){
     i+=di;
     c.clearRect(0, 0, innerWidth, innerHeight);
@@ -80,11 +82,11 @@ function draw(){
 
     
 
-    rects.push(new Rectangle(700, 100, 100, 100))
-    rects.push(new Rectangle(600, 200, 200, 100))
-    rects.push(new Rectangle(500, 300, 300, 100))
-    rects.push(new Rectangle(400, 400, 400, 100))
-    rects.push(new Rectangle(300, 500, 500, 100))
+    // rects.push(new Rectangle(700, 100, 100, 100))
+    // rects.push(new Rectangle(600, 200, 200, 100))
+    // rects.push(new Rectangle(500, 300, 300, 100))
+    // rects.push(new Rectangle(400, 400, 400, 100))
+    
     circle.update();
     drawRects();
 }
