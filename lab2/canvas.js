@@ -8,7 +8,7 @@ var c = canvas.getContext("2d");
 setInterval(draw, 10);
 var i = 0;
 var di = 1;
-var g = 2;
+var g = 0.2;
 
 function Circle(x, y, dx, dy, r){
     this.x = x;
@@ -26,15 +26,16 @@ function Circle(x, y, dx, dy, r){
 
     this.update = function(){
         this.dy += g;
-        this.x += this.dx;
-        this.y += this.dy;
         if (this.x > canvas.width - this.r || this.x < this.r) {
             this.dx *= -1;
         }
         if (this.y > canvas.height - this.r || this.y < this.r) {
             this.dy *= -1;
+            this.dy *= 0.8;
         }
         
+        this.x += this.dx;
+        this.y += this.dy;
         console.log(this.y);
         this.draw();
     }
