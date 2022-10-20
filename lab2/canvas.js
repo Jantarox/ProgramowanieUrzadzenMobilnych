@@ -29,6 +29,13 @@ function Rectangle(x, y, width, height){
     this.y = y;
     this.width = width;
     this.height = height;
+
+    this.draw = function () {
+        c.beginPath();
+        c.rect(this.x, this.y, this.width, this.height);
+        c.strokeStyle = "black";
+        c.stroke();
+    }
 }
 
 function draw(){
