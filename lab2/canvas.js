@@ -26,6 +26,7 @@ function Circle(x, y, dx, dy, r){
 
     this.update = function(){
         this.dy += g;
+        //Colision with boundaries
         if (this.x > canvas.width - this.r || this.x < this.r) {
             this.dx *= -1;
         }
@@ -33,10 +34,18 @@ function Circle(x, y, dx, dy, r){
             this.dy *= -1;
             this.dy *= 0.8;
         }
+
+        rects.forEach(rect => {
+            if (this.x + this.r > rect.x && this.x - r < rect.w) {
+                this.dx *= -1;
+            }
+            if (this.y + this.r > rect.y && this.y - r < rect.h) {
+                this.dx *= -1;
+            }
+        })
         
         this.x += this.dx;
         this.y += this.dy;
-        console.log(this.y);
         this.draw();
     }
 }
