@@ -57,9 +57,12 @@ function draw(){
     c.fill();
     c.stroke();
 
+    
     if(y > 600 - 50 || y < 0 + 50){
         dy = -dy - a;
+        console.log(dy)
     }
     dy+=a;
     y+=dy;
+    console.log();
 }
