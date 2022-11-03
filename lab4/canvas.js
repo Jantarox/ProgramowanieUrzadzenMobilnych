@@ -99,7 +99,25 @@ function Roadline(x, y, dy){
     }
 }
 
-var road = new Roadline(200, 0);
+function Car(x, y){
+    this.x = x;
+    this.y = y;
+    this.draw = function(){
+        c.beginPath();
+        c.strokeStyle = "red";
+        c.fillStyle = "red";
+        c.fillRect(this.x-40, this.y, 80, 150);
+
+        c.stroke();
+    }
+
+    this.update = function(){
+
+        this.draw()
+    }
+}
+
+var car = new Car(400, 300);
 var roadLines = [];
 roadLines.push(new Roadline(200, -150, 5));
 roadLines.push(new Roadline(200, 0, 5));
@@ -113,7 +131,10 @@ function draw() {
     c.fillStyle = "green";
     c.fillRect(0, 0, canvas.width, canvas.height);
 
-    road.update();
+
+
+
+    
     roadLines = roadLines.filter(line => line.y < 600);
     if(roadLines.length < 5){
         roadLines.push(new Roadline(200, -150, 5));
@@ -121,5 +142,5 @@ function draw() {
     roadLines.forEach((line) => {
         line.update()
     });
-    
+    car.update();
 }
