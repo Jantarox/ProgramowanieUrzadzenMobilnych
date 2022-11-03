@@ -109,9 +109,10 @@ function Roadline(x, y, dy){
     }
 }
 
-function Car(x, y, color){
+function Car(x, y, dy, color){
     this.x = x;
     this.y = y;
+    this.dy = dy;
     this.color = color;
     this.draw = function(){
         c.beginPath();
@@ -142,25 +143,29 @@ function Car(x, y, color){
     }
 
     this.moveLeft = function(){
-        this.x -= 5;
+        if(this.x - 5 >= 260){
+            this.x -= 5;
+        }
     }
 
     this.moveRight = function(){
-        this.x += 5;
+        if(this.x + 5 <= 550){
+            this.x += 5;
+        }
     }
 
     this.update = function(){
-
+        this.y += this.dy;
         this.draw()
     }
 }
 
 roadSpeed=2;
 
-var car = new Car(400, 400);
+var car = new Car(400, 400, 0, "red");
 
 var obstacles = [];
-obstacles.push(new Car(400, 50, "green"));
+obstacles.push(new Car(400, -150, 2, "green"));
 
 var roadLines = [];
 roadLines.push(new Roadline(200, -150, roadSpeed));
