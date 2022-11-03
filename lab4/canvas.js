@@ -78,6 +78,17 @@ function Roadline(x, y, dy){
         c.strokeStyle = "white";
         c.fillStyle = "white";
         c.fillRect(this.x+175, this.y, 50, 75);
+        c.fillRect(this.x, this.y, 20, 37);
+        c.fillRect(this.x+380, this.y, 20, 37);
+        c.fillRect(this.x, this.y+75, 20, 37);
+        c.fillRect(this.x+380, this.y+75, 20, 37);
+        c.strokeStyle = "red";
+        c.fillStyle = "red";
+        c.fillRect(this.x, this.y+37, 20, 38);
+        c.fillRect(this.x+380, this.y+37, 20, 38);
+        c.fillRect(this.x, this.y+75+37, 20, 38);
+        c.fillRect(this.x+380, this.y+75+37, 20, 38);
+
         c.stroke();
     }
 
@@ -103,8 +114,12 @@ function draw() {
     c.fillRect(0, 0, canvas.width, canvas.height);
 
     road.update();
+    roadLines = roadLines.filter(line => line.y < 600);
+    if(roadLines.length < 5){
+        roadLines.push(new Roadline(200, -150, 5));
+    }
     roadLines.forEach((line) => {
         line.update()
     });
-    roadLines = roadLines.filter(line => line.y <= 600);
+    
 }
