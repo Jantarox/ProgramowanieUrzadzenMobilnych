@@ -41,42 +41,37 @@ function Circle(x, y, dx, dy, r) {
     }
 }
 
-function Rectangle(x, y, width, height, color) {
+function Rectangle(x, y, width, height, dx, dy, color) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.dx = dx;
+    this.dy = dy;
     this.color = color;
 
     this.draw = function () {
         c.beginPath();
         c.rect(this.x, this.y, this.width, this.height);
         c.strokeStyle = this.color;
+        c.fillStyle = this.color;
+        c.fillRect(this.x, this.y, this.width, this.height);
         c.stroke();
     }
 
     this.update = function () {
-        this.dy += g;
-        //Colision with boundaries
-        if (this.x > canvas.width - this.r || this.x < this.r) {
-            this.dx *= -1;
-        }
-        if (this.y > canvas.height - this.r || this.y < this.r) {
-            this.dy *= -1;
-            this.dy *= 0.8;
-        }
-
         this.x += this.dx;
         this.y += this.dy;
         this.draw();
     }
 }
 
-var road = new Rectangle(200, 0, 400, 600, "black");
+var road = new Rectangle(200, 0, 400, 600, 0, 0, "black");
+var roadLines = [];
 var circle;
 
 function draw() {
     i += di;
 
-    road.draw();
+    road.update();
 }
