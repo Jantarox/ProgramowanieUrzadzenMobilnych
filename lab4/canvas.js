@@ -66,12 +66,27 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 }
 
+function Roadline(x, y){
+    this.x = x;
+    this.y = y;
+    this.draw = function(){
+        c.beginPath();
+        c.strokeStyle = "black";
+        c.fillStyle = "black";
+        c.fillRect(this.x, this.y, 400, 150);
+        c.strokeStyle = "white";
+        c.fillStyle = "white";
+        c.fillRect(this.x+175, this.y, 50, 75);
+        c.stroke();
+    }
+}
+
 var road = new Rectangle(200, 0, 400, 600, 0, 0, "black");
 var roadLines = [];
-roadLines.push(new Rectangle(375, 0, 50, 75, 0, 0, "white"));
-roadLines.push(new Rectangle(375, 150, 50, 75, 0, 0, "white"));
-roadLines.push(new Rectangle(375, 300, 50, 75, 0, 0, "white"));
-roadLines.push(new Rectangle(375, 450, 50, 75, 0, 0, "white"));
+// roadLines.push(new Rectangle(375, 0, 50, 75, 0, 0, "white"));
+// roadLines.push(new Rectangle(375, 150, 50, 75, 0, 0, "white"));
+// roadLines.push(new Rectangle(375, 300, 50, 75, 0, 0, "white"));
+// roadLines.push(new Rectangle(375, 450, 50, 75, 0, 0, "white"));
 var circle;
 
 function draw() {
