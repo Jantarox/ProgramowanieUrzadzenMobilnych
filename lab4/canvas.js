@@ -165,7 +165,6 @@ roadSpeed=2;
 var car = new Car(400, 400, 0, "red");
 
 var obstacles = [];
-obstacles.push(new Car(400, -150, 2, "green"));
 
 var roadLines = [];
 roadLines.push(new Roadline(200, -150, roadSpeed));
