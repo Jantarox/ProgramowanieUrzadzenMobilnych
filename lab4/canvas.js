@@ -107,7 +107,25 @@ function Car(x, y){
         c.strokeStyle = "red";
         c.fillStyle = "red";
         c.fillRect(this.x-40, this.y, 80, 150);
-
+        c.strokeStyle = "white";
+        c.fillStyle = "white";
+        c.arc(this.x-30, this.y+30, 20, 0, Math.PI * 2);
+        c.fill();
+        c.closePath();
+        c.stroke();
+        c.beginPath();
+        c.arc(this.x-30, this.y+120, 20, 0, Math.PI * 2);
+        c.fill();
+        c.closePath();
+        c.stroke();
+        c.beginPath();
+        c.arc(this.x+30, this.y+30, 20, 0, Math.PI * 2);
+        c.fill();
+        c.closePath();
+        c.stroke();
+        c.beginPath();
+        c.arc(this.x+30, this.y+120, 20, 0, Math.PI * 2);
+        c.fill();
         c.stroke();
     }
 
@@ -117,13 +135,15 @@ function Car(x, y){
     }
 }
 
-var car = new Car(400, 300);
+roadSpeed=3;
+
+var car = new Car(400, 400);
 var roadLines = [];
-roadLines.push(new Roadline(200, -150, 5));
-roadLines.push(new Roadline(200, 0, 5));
-roadLines.push(new Roadline(200, 150, 5));
-roadLines.push(new Roadline(200, 300, 5));
-roadLines.push(new Roadline(200, 450, 5));
+roadLines.push(new Roadline(200, -150, roadSpeed));
+roadLines.push(new Roadline(200, 0, roadSpeed));
+roadLines.push(new Roadline(200, 150, roadSpeed));
+roadLines.push(new Roadline(200, 300, roadSpeed));
+roadLines.push(new Roadline(200, 450, roadSpeed));
 var circle;
 
 function draw() {
@@ -137,7 +157,7 @@ function draw() {
     
     roadLines = roadLines.filter(line => line.y < 600);
     if(roadLines.length < 5){
-        roadLines.push(new Roadline(200, -150, 5));
+        roadLines.push(new Roadline(200, -150, roadSpeed));
     }
     roadLines.forEach((line) => {
         line.update()
