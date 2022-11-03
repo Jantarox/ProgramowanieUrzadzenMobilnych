@@ -189,10 +189,19 @@ function draw() {
         roadLines.push(new Roadline(200, -150, roadSpeed));
     }
     roadLines.forEach((line) => {
-        line.update()
+        line.update();
     });
+    obstacles = obstacles.filter(obstacle => obstacle.y < 600);
+    if(obstacles.length == 0){
+        if(Math.random() > 0.5){
+            obstacles.push(new Car(300, -150, 2, "green"));
+        }else{
+            obstacles.push(new Car(500, -150, 2, "green"));
+        }
+        
+    }
     obstacles.forEach((obstacle) => {
-        obstacle.update()
+        obstacle.update();
     });
     car.update();
 }
