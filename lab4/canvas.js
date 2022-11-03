@@ -66,9 +66,10 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 }
 
-function Roadline(x, y){
+function Roadline(x, y, dy){
     this.x = x;
     this.y = y;
+    this.dy = dy;
     this.draw = function(){
         c.beginPath();
         c.strokeStyle = "black";
@@ -79,14 +80,21 @@ function Roadline(x, y){
         c.fillRect(this.x+175, this.y, 50, 75);
         c.stroke();
     }
+
+    this.update = function(){
+        this.y += this.dy;
+
+        this.draw()
+    }
 }
 
-var road = new Rectangle(200, 0, 400, 600, 0, 0, "black");
+var road = new Roadline(200, 0);
 var roadLines = [];
-// roadLines.push(new Rectangle(375, 0, 50, 75, 0, 0, "white"));
-// roadLines.push(new Rectangle(375, 150, 50, 75, 0, 0, "white"));
-// roadLines.push(new Rectangle(375, 300, 50, 75, 0, 0, "white"));
-// roadLines.push(new Rectangle(375, 450, 50, 75, 0, 0, "white"));
+roadLines.push(new Roadline(200, -150, 5));
+roadLines.push(new Roadline(200, 0, 5));
+roadLines.push(new Roadline(200, 150, 5));
+roadLines.push(new Roadline(200, 300, 5));
+roadLines.push(new Roadline(200, 450, 5));
 var circle;
 
 function draw() {
@@ -95,5 +103,8 @@ function draw() {
     c.fillRect(0, 0, canvas.width, canvas.height);
 
     road.update();
-    roadLines.forEach((line) => line.update());
+    roadLines.forEach((line) => {
+        line.update()
+    });
+    roadLines = roadLines.filter(line => line.y <= 600);
 }
