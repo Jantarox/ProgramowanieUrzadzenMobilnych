@@ -10,6 +10,16 @@ var i = 0;
 var di = 1;
 var g = 0.2;
 
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    if(key === "ArrowLeft"){
+        car.moveLeft();
+    }else if(key === "ArrowRight"){
+        car.moveRight();
+    }
+})
+
 function Circle(x, y, dx, dy, r) {
     this.x = x;
     this.y = y;
@@ -107,7 +117,7 @@ function Car(x, y){
         c.strokeStyle = "red";
         c.fillStyle = "red";
         c.fillRect(this.x-40, this.y, 80, 150);
-        c.strokeStyle = "white";
+        c.strokeStyle = "black";
         c.fillStyle = "white";
         c.arc(this.x-30, this.y+30, 20, 0, Math.PI * 2);
         c.fill();
@@ -129,13 +139,21 @@ function Car(x, y){
         c.stroke();
     }
 
+    this.moveLeft = function(){
+        this.x -= 5;
+    }
+
+    this.moveRight = function(){
+        this.x += 5;
+    }
+
     this.update = function(){
 
         this.draw()
     }
 }
 
-roadSpeed=3;
+roadSpeed=2;
 
 var car = new Car(400, 400);
 var roadLines = [];
