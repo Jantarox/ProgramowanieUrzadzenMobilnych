@@ -68,10 +68,17 @@ function Rectangle(x, y, width, height, dx, dy, color) {
 
 var road = new Rectangle(200, 0, 400, 600, 0, 0, "black");
 var roadLines = [];
+roadLines.push(new Rectangle(375, 0, 50, 75, 0, 0, "white"));
+roadLines.push(new Rectangle(375, 150, 50, 75, 0, 0, "white"));
+roadLines.push(new Rectangle(375, 300, 50, 75, 0, 0, "white"));
+roadLines.push(new Rectangle(375, 450, 50, 75, 0, 0, "white"));
 var circle;
 
 function draw() {
     i += di;
+    c.fillStyle = "green";
+    c.fillRect(0, 0, canvas.width, canvas.height);
 
     road.update();
+    roadLines.forEach((line) => line.update());
 }
