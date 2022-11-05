@@ -8,15 +8,12 @@ var c = canvas.getContext("2d");
 setInterval(draw, 10);
 var i = 0;
 var di = 1;
-var g = 0.2;
 
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
     if(key === "ArrowLeft"){
-        car.moveLeft();
     }else if(key === "ArrowRight"){
-        car.moveRight();
     }
 })
 
@@ -76,131 +73,8 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 }
 
-function Roadline(x, y, dy){
-    this.x = x;
-    this.y = y;
-    this.dy = dy;
-    this.draw = function(){
-        c.beginPath();
-        c.strokeStyle = "black";
-        c.fillStyle = "black";
-        c.fillRect(this.x, this.y, 400, 150);
-        c.strokeStyle = "white";
-        c.fillStyle = "white";
-        c.fillRect(this.x+175, this.y, 50, 75);
-        c.fillRect(this.x, this.y, 20, 37);
-        c.fillRect(this.x+380, this.y, 20, 37);
-        c.fillRect(this.x, this.y+75, 20, 37);
-        c.fillRect(this.x+380, this.y+75, 20, 37);
-        c.strokeStyle = "red";
-        c.fillStyle = "red";
-        c.fillRect(this.x, this.y+37, 20, 38);
-        c.fillRect(this.x+380, this.y+37, 20, 38);
-        c.fillRect(this.x, this.y+75+37, 20, 38);
-        c.fillRect(this.x+380, this.y+75+37, 20, 38);
 
-        c.stroke();
-    }
-
-    this.update = function(){
-        this.y += this.dy;
-
-        this.draw()
-    }
-}
-
-function Car(x, y, dy, color){
-    this.x = x;
-    this.y = y;
-    this.dy = dy;
-    this.color = color;
-    this.draw = function(){
-        c.beginPath();
-        c.strokeStyle = this.color;
-        c.fillStyle = this.color;
-        c.fillRect(this.x-40, this.y, 80, 150);
-        c.strokeStyle = "black";
-        c.fillStyle = "white";
-        c.arc(this.x-30, this.y+30, 20, 0, Math.PI * 2);
-        c.fill();
-        c.closePath();
-        c.stroke();
-        c.beginPath();
-        c.arc(this.x-30, this.y+120, 20, 0, Math.PI * 2);
-        c.fill();
-        c.closePath();
-        c.stroke();
-        c.beginPath();
-        c.arc(this.x+30, this.y+30, 20, 0, Math.PI * 2);
-        c.fill();
-        c.closePath();
-        c.stroke();
-        c.beginPath();
-        c.arc(this.x+30, this.y+120, 20, 0, Math.PI * 2);
-        c.fill();
-        c.closePath();
-        c.stroke();
-    }
-
-    this.moveLeft = function(){
-        if(this.x - 5 >= 260){
-            this.x -= 5;
-        }
-    }
-
-    this.moveRight = function(){
-        if(this.x + 5 <= 550){
-            this.x += 5;
-        }
-    }
-
-    this.update = function(){
-        this.y += this.dy;
-        this.draw()
-    }
-}
-
-roadSpeed=2;
-
-var car = new Car(400, 400, 0, "red");
-
-var obstacles = [];
-
-var roadLines = [];
-roadLines.push(new Roadline(200, -150, roadSpeed));
-roadLines.push(new Roadline(200, 0, roadSpeed));
-roadLines.push(new Roadline(200, 150, roadSpeed));
-roadLines.push(new Roadline(200, 300, roadSpeed));
-roadLines.push(new Roadline(200, 450, roadSpeed));
-var circle;
 
 function draw() {
     i += di;
-    c.fillStyle = "green";
-    c.fillRect(0, 0, canvas.width, canvas.height);
-
-
-
-
-    
-    roadLines = roadLines.filter(line => line.y < 600);
-    if(roadLines.length < 5){
-        roadLines.push(new Roadline(200, -150, roadSpeed));
-    }
-    roadLines.forEach((line) => {
-        line.update();
-    });
-    obstacles = obstacles.filter(obstacle => obstacle.y < 600);
-    if(obstacles.length == 0){
-        if(Math.random() > 0.5){
-            obstacles.push(new Car(300, -150, 2, "green"));
-        }else{
-            obstacles.push(new Car(500, -150, 2, "green"));
-        }
-        
-    }
-    obstacles.forEach((obstacle) => {
-        obstacle.update();
-    });
-    car.update();
 }
