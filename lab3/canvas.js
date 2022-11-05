@@ -73,8 +73,11 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 }
 
+var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
 
 
 function draw() {
     i += di;
+
+    plate.update();
 }
