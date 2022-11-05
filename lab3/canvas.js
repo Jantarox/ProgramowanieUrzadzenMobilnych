@@ -67,6 +67,9 @@ function Circle(x, y, dx, dy, r, color) {
                 !this.bounced) {
                 
                     rect.hit = true;
+                    if(rect.color !== "black"){
+                        points++;
+                    }
                     if (this.y < rect.y || this.y > rect.y + rect.height) {
                         this.dy *= -1;
                         this.bounced = true;
@@ -125,6 +128,7 @@ function Rectangle(x, y, width, height, dx, dy, color) {
 var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
 var ball = new Circle(400, 540, 0, 0, 10, "green");
 var gameInProgress = false;
+var points = 0;
 
 var rects = [];
 
@@ -132,6 +136,7 @@ var rects = [];
 rects.push(plate);
 
 var boxSize = 50;
+c.font = "30px Arial";
 
 for(var i=0; i<2; i++){
     var j=0;
@@ -173,4 +178,7 @@ function draw() {
         ball.dx = 0;
         ball.dy = 0;
     }
+
+    c.fillStyle = "black";
+    c.fillText(`Points: ${points}`, 10, 30);  
 }
