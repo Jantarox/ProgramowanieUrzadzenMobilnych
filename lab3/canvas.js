@@ -34,14 +34,12 @@ function Circle(x, y, dx, dy, r) {
     }
 
     this.update = function () {
-        this.dy += g;
         //Colision with boundaries
         if (this.x > canvas.width - this.r || this.x < this.r) {
             this.dx *= -1;
         }
         if (this.y > canvas.height - this.r || this.y < this.r) {
             this.dy *= -1;
-            this.dy *= 0.8;
         }
 
         this.x += this.dx;
@@ -84,6 +82,7 @@ function Rectangle(x, y, width, height, dx, dy, color) {
 }
 
 var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
+var ball = new Circle(400, 540, 2, -2, 10);
 
 
 function draw() {
@@ -91,6 +90,6 @@ function draw() {
     c.clearRect(0, 0, canvas.width, canvas.height);
 
 
-
+    ball.update();
     plate.update();
 }
