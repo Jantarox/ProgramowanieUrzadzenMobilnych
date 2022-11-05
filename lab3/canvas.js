@@ -104,7 +104,29 @@ var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
 var ball = new Circle(400, 540, 2, -2, 10);
 
 var rects = [];
+
+
 rects.push(plate);
+
+var boxSize = 50;
+
+for(var i=0; i<2; i++){
+    var j=0;
+    while(true){
+        var color;
+        if((j+i) % 2 ){
+            color = "red";
+        }else{
+            color = "blue";
+        }
+
+        rects.push(new Rectangle(j*boxSize, i*boxSize+boxSize+20,boxSize, boxSize, 0, 0, color));
+        j++;
+        if(j*boxSize >= canvas.width){
+            break;
+        }
+    }
+}
 
 
 function draw() {
@@ -113,5 +135,7 @@ function draw() {
 
 
     ball.update();
-    plate.update();
+    rects.forEach(rect => {
+        rect.update();
+    })
 }
