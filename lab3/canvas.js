@@ -135,7 +135,8 @@ var rects = [];
 
 rects.push(plate);
 
-var boxSize = 50;
+var boxWidth = 80;
+var boxHeight = 30;
 c.font = "30px Arial";
 
 for(var i=0; i<2; i++){
@@ -148,9 +149,9 @@ for(var i=0; i<2; i++){
             color = "blue";
         }
 
-        rects.push(new Rectangle(j*boxSize, i*boxSize+boxSize+20,boxSize, boxSize, 0, 0, color));
+        rects.push(new Rectangle(j*boxWidth, i*boxHeight+boxHeight+50,boxWidth, boxHeight, 0, 0, color));
         j++;
-        if(j*boxSize >= canvas.width){
+        if(j*boxWidth >= canvas.width){
             break;
         }
     }
