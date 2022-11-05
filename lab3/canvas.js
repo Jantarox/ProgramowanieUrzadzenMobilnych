@@ -13,7 +13,9 @@ document.addEventListener('keydown', (event) => {
     const key = event.key;
 
     if(key === "ArrowLeft"){
+        plate.moveLeft();
     }else if(key === "ArrowRight"){
+        plate.moveRight();
     }
 })
 
@@ -64,6 +66,14 @@ function Rectangle(x, y, width, height, dx, dy, color) {
         c.fillStyle = this.color;
         c.fillRect(this.x, this.y, this.width, this.height);
         c.stroke();
+    }
+
+    this.moveRight = function(){
+        this.x += 10;
+    }
+
+    this.moveLeft = function(){
+        this.x -= 10;
     }
 
     this.update = function () {
