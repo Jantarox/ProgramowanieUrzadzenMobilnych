@@ -16,6 +16,12 @@ document.addEventListener('keydown', (event) => {
         plate.moveLeft();
     }else if(key === "ArrowRight"){
         plate.moveRight();
+    }else if(key === " "){
+        if(gameInProgress === false){
+            gameInProgress = true;
+            ball.dy = -2;
+            ball.dx = 2;
+        }
     }
 })
 
@@ -117,7 +123,8 @@ function Rectangle(x, y, width, height, dx, dy, color) {
 }
 
 var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
-var ball = new Circle(400, 540, 2, -2, 10, "green");
+var ball = new Circle(400, 540, 0, 0, 10, "green");
+var gameInProgress = false;
 
 var rects = [];
 
@@ -149,6 +156,10 @@ function draw() {
     i += di;
     c.clearRect(0, 0, canvas.width, canvas.height);
 
+    if(gameInProgress === false){
+        ball.x = plate.x + plate.width/2;
+        ball.y = plate.y - ball.r;
+    }
 
     ball.update();
     ball.bounced = false;
@@ -156,4 +167,10 @@ function draw() {
         rect.update();
     })
     rects = rects.filter(rect => !rect.hit || rect.color === "black");
+    
+    if(ball.y > canvas.height + 50){
+        gameInProgress = false;
+        ball.dx = 0;
+        ball.dy = 0;
+    }
 }
