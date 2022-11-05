@@ -25,6 +25,7 @@ function Circle(x, y, dx, dy, r) {
     this.dx = dx;
     this.dy = dy;
     this.r = r;
+    this.bounced = false;
 
     this.draw = function () {
         c.beginPath();
@@ -37,12 +38,14 @@ function Circle(x, y, dx, dy, r) {
         //Colision with boundaries
         if (this.x > canvas.width - this.r || this.x < this.r) {
             this.dx *= -1;
+            this.bounced = true;
         }
         // if (this.y > canvas.height - this.r || this.y < this.r) {
         //     this.dy *= -1;
         // }
-        if (this.y < this.r) {
+        if (this.y < this.r && !this.bounced) {
             this.dy *= -1;
+            this.bounced = true;
         }
 
         rects.forEach(rect => {
@@ -50,15 +53,20 @@ function Circle(x, y, dx, dy, r) {
             if (this.x + this.r > rect.x &&
                 this.x - this.r < rect.x + rect.width &&
                 this.y - this.r < rect.y + rect.height &&
-                this.y + this.r > rect.y) {
+                this.y + this.r > rect.y && 
+                !this.bounced) {
                 if (this.y < rect.y || this.y > rect.y + rect.height) {
                     this.dy *= -1;
+                    this.bounced = true;
                 }
                 else if (this.x < rect.x || this.x > rect.x + rect.width) {
                     this.dx *= -1;
+                    this.bounced = true;
                 }
             }
         })
+
+        
 
         this.x += this.dx;
         this.y += this.dy;
@@ -135,6 +143,7 @@ function draw() {
 
 
     ball.update();
+    ball.bounced = false;
     rects.forEach(rect => {
         rect.update();
     })
