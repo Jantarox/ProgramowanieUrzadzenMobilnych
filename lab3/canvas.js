@@ -38,9 +38,27 @@ function Circle(x, y, dx, dy, r) {
         if (this.x > canvas.width - this.r || this.x < this.r) {
             this.dx *= -1;
         }
-        if (this.y > canvas.height - this.r || this.y < this.r) {
+        // if (this.y > canvas.height - this.r || this.y < this.r) {
+        //     this.dy *= -1;
+        // }
+        if (this.y < this.r) {
             this.dy *= -1;
         }
+
+        rects.forEach(rect => {
+
+            if (this.x + this.r > rect.x &&
+                this.x - this.r < rect.x + rect.width &&
+                this.y - this.r < rect.y + rect.height &&
+                this.y + this.r > rect.y) {
+                if (this.y < rect.y || this.y > rect.y + rect.height) {
+                    this.dy *= -1;
+                }
+                else if (this.x < rect.x || this.x > rect.x + rect.width) {
+                    this.dx *= -1;
+                }
+            }
+        })
 
         this.x += this.dx;
         this.y += this.dy;
@@ -77,12 +95,16 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     this.update = function () {
         this.x += this.dx;
         this.y += this.dy;
+
         this.draw();
     }
 }
 
 var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
 var ball = new Circle(400, 540, 2, -2, 10);
+
+var rects = [];
+rects.push(plate);
 
 
 function draw() {
