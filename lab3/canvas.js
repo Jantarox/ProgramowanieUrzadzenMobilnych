@@ -88,6 +88,9 @@ var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
 
 function draw() {
     i += di;
+    c.clearRect(0, 0, canvas.width, canvas.height);
+
+
 
     plate.update();
 }
