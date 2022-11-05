@@ -19,18 +19,22 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
-function Circle(x, y, dx, dy, r) {
+function Circle(x, y, dx, dy, r, color) {
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
     this.r = r;
     this.bounced = false;
+    this.color = color;
 
     this.draw = function () {
         c.beginPath();
+        c.strokeStyle = "black";
+        c.fillStyle = this.color;
         c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        c.strokeStyle = "blue";
+        c.fill();
+        c.closePath();
         c.stroke();
     }
 
@@ -55,14 +59,16 @@ function Circle(x, y, dx, dy, r) {
                 this.y - this.r < rect.y + rect.height &&
                 this.y + this.r > rect.y && 
                 !this.bounced) {
-                if (this.y < rect.y || this.y > rect.y + rect.height) {
-                    this.dy *= -1;
-                    this.bounced = true;
-                }
-                else if (this.x < rect.x || this.x > rect.x + rect.width) {
-                    this.dx *= -1;
-                    this.bounced = true;
-                }
+                
+                    rect.hit = true;
+                    if (this.y < rect.y || this.y > rect.y + rect.height) {
+                        this.dy *= -1;
+                        this.bounced = true;
+                    }
+                    else if (this.x < rect.x || this.x > rect.x + rect.width) {
+                        this.dx *= -1;
+                        this.bounced = true;
+                    }
             }
         })
 
@@ -82,14 +88,16 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     this.dx = dx;
     this.dy = dy;
     this.color = color;
+    this.hit = false;
 
     this.draw = function () {
         c.beginPath();
         c.rect(this.x, this.y, this.width, this.height);
-        c.strokeStyle = this.color;
+        c.strokeStyle = "black";
         c.fillStyle = this.color;
         c.fillRect(this.x, this.y, this.width, this.height);
         c.stroke();
+        c.closePath();
     }
 
     this.moveRight = function(){
@@ -109,7 +117,7 @@ function Rectangle(x, y, width, height, dx, dy, color) {
 }
 
 var plate = new Rectangle(350, 550, 100, 20, 0, 0, "black");
-var ball = new Circle(400, 540, 2, -2, 10);
+var ball = new Circle(400, 540, 2, -2, 10, "green");
 
 var rects = [];
 
@@ -147,4 +155,5 @@ function draw() {
     rects.forEach(rect => {
         rect.update();
     })
+    rects = rects.filter(rect => !rect.hit || rect.color === "black");
 }
