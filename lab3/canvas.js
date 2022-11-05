@@ -69,11 +69,11 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 
     this.moveRight = function(){
-        this.x += 10;
+        if(this.x + this.width < canvas.width){this.x += 10;}
     }
 
     this.moveLeft = function(){
-        this.x -= 10;
+        if(this.x > 0){this.x -= 10;}
     }
 
     this.update = function () {
