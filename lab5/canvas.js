@@ -308,21 +308,16 @@ function draw() {
         line.update();
     });
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
+    bonuses = bonuses.filter(bonus => bonus.y < 600);
 
 
     if (obstacles.length == 0) {
         if (Math.random() > 0.5) {
             obstacles.push(new Car(300, -150, 0, 2, "green", i));
+            bonuses.push(new Bonus(475, -100, 50, 50, 0, 2, "yellow", i));
         } else {
             obstacles.push(new Car(500, -150, 0, 2, "green", i));
-        }
-    }
-
-    if(bonuses.length == 0){
-        if (Math.random() > 0.5) {
-            bonuses.push(new Bonus(300, -150, 50, 50, 0, -5, "yellow", i));
-        } else {
-            bonuses.push(new Bonus(500, -150, 50, 50, 0, -5, "yellow", i));
+            bonuses.push(new Bonus(275, -100, 50, 50, 0, 2, "yellow", i));
         }
     }
 
