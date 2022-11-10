@@ -177,6 +177,45 @@ function Car(x, y, dx, dy, color) {
     }
 }
 
+function Bullet(x, y, id) {
+    this.x = x;
+    this.y = y;
+    this.dy = -2;
+    this.r = 5;
+    this.id = id;
+
+    this.draw = function () {
+        c.beginPath();
+        c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        c.strokeStyle = "blue";
+        c.stroke();
+    }
+
+    this.update = function () {
+        //Colision with boundaries
+        if (this.y > canvas.height - this.r || this.y < this.r) {
+            bullets = bullets.filter(bullet => bullet.id !== this.id);
+        }
+        this.hit();
+
+        this.y += this.dy;
+        this.draw();
+    }
+
+    this.hit = function(){
+        circles.forEach((circle) => {
+            var x1 = Math.pow(this.x - circle.x, 2);
+            var y1 = Math.pow(this.y - circle.y, 2);
+            var distance = Math.sqrt(x1 + y1);
+            if(distance <= circle.r + this.r){
+                console.log(circle.id);
+                bullets = bullets.filter(bullet => bullet.id !== this.id);
+                circles = circles.filter(circle1 => circle.id !== circle1.id);
+            }
+        })
+    }
+}
+
 function checkCarColision(car1, car2) {
 
     if (
