@@ -347,8 +347,8 @@ function draw() {
     bonuses.forEach(bonus => {
         bonus.update();
         if(checkBonusColision(car, bonus)){
-            c.fillStyle = "red";
-            c.fillText(`Game over!`, canvas.width/2, canvas.height/2);
+            points++;
+            bonuses = bonuses.filter(bonus1 => bonus1.id != bonus.id);
         }
     })
 
