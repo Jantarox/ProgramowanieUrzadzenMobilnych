@@ -237,11 +237,13 @@ function Bullet(x, y, id) {
     }
 }
 
-function Bonus(x, y, width, height, color, id) {
+function Bonus(x, y, width, height, dx, dy, color, id) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.dx = dx;
+    this.dy = dy;
     this.color = color;
     this.id = id;
 
@@ -255,6 +257,8 @@ function Bonus(x, y, width, height, color, id) {
     }
 
     this.update = function () {
+        this.x += this.dx;
+        this.y += this.dy;
         this.draw();
     }
 }
@@ -280,6 +284,7 @@ var car = new Car(400, 400, 0, 0, "red");
 
 var obstacles = [];
 var bullets = [];
+var bonuses = [];
 
 var roadLines = [];
 roadLines.push(new Roadline(200, -150, roadSpeed));
@@ -303,14 +308,25 @@ function draw() {
         line.update();
     });
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
+
+
     if (obstacles.length == 0) {
         if (Math.random() > 0.5) {
-            obstacles.push(new Car(300, -150, 0, 2, "green"));
+            obstacles.push(new Car(300, -150, 0, 2, "green", i));
         } else {
-            obstacles.push(new Car(500, -150, 0, 2, "green"));
+            obstacles.push(new Car(500, -150, 0, 2, "green", i));
         }
-
     }
+
+    if(bonuses.length == 0){
+        if (Math.random() > 0.5) {
+            bonuses.push(new Bonus(300, -150, 50, 50, 0, -5, "yellow", i));
+        } else {
+            bonuses.push(new Bonus(500, -150, 50, 50, 0, -5, "yellow", i));
+        }
+    }
+
+
     obstacles.forEach((obstacle) => {
         obstacle.update();
         if(checkCarColision(car, obstacle)){
@@ -318,6 +334,11 @@ function draw() {
             c.fillText(`Game over!`, canvas.width/2, canvas.height/2);
         }
     });
+
+    bonuses.forEach(bonus => {
+        bonus.update();
+    })
+
     car.update();
     bullets.forEach((bullet) => {
         bullet.update();
