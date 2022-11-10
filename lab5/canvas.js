@@ -120,32 +120,37 @@ function Roadline(x, y, dy){
 function Car(x, y, dx, dy, color){
     this.x = x;
     this.y = y;
+
+    this.w = 80;
+    this.h = 150;
+
     this.dx = dx;
     this.dy = dy;
+    
     this.color = color;
     this.draw = function(){
         c.beginPath();
         c.strokeStyle = this.color;
         c.fillStyle = this.color;
-        c.fillRect(this.x-40, this.y, 80, 150);
+        c.fillRect(this.x-this.w/2, this.y, this.w, 150);
         c.strokeStyle = "black";
         c.fillStyle = "white";
-        c.arc(this.x-30, this.y+30, 20, 0, Math.PI * 2);
+        c.arc(this.x-(this.w/2-10), this.y+30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x-30, this.y+120, 20, 0, Math.PI * 2);
+        c.arc(this.x-(this.w/2-10), this.y+this.h-30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x+30, this.y+30, 20, 0, Math.PI * 2);
+        c.arc(this.x+(this.w/2-10), this.y+30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x+30, this.y+120, 20, 0, Math.PI * 2);
+        c.arc(this.x+(this.w/2-10), this.y+this.h-30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
@@ -170,6 +175,18 @@ function Car(x, y, dx, dy, color){
         }
         this.draw()
     }
+}
+
+function checkCarColision(car1, car2){
+
+    if (
+        car1.x - 40 < car2.x - 40 + car2.w &&
+        car1.x - 40 + car1.w > car2.x - 40 &&
+        car1.y < car2.y + car2.h &&
+        car1.h + car1.y > car2.y
+      ){
+        
+      }
 }
 
 roadSpeed=2;
