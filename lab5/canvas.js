@@ -196,7 +196,7 @@ function Car(x, y, dx, dy, color, id) {
 function Bullet(x, y, id) {
     this.x = x;
     this.y = y;
-    this.dy = -2;
+    this.dy = -4;
     this.r = 5;
     this.id = id;
 
@@ -290,7 +290,7 @@ function checkBonusColision(car, bonus) {
     return false;
 }
 
-var roadSpeed = 2;
+var roadSpeed = 3;
 var points = 0;
 var gameInProgress = true;
 c.font = "30px Arial";
@@ -326,13 +326,13 @@ function draw() {
     bonuses = bonuses.filter(bonus => bonus.y < 600);
 
 
-    if (obstacles.length == 0) {
+    if ((i-1) % 250 == 0) {
         if (Math.random() > 0.5) {
-            obstacles.push(new Car(300, -150, 0, 2, "green", i));
-            bonuses.push(new Bonus(475, -100, 50, 50, 0, 2, "yellow", i));
+            obstacles.push(new Car(300, -150, 0, roadSpeed, "green", i));
+            bonuses.push(new Bonus(475, -100, 50, 50, 0, roadSpeed, "yellow", i));
         } else {
-            obstacles.push(new Car(500, -150, 0, 2, "green", i));
-            bonuses.push(new Bonus(275, -100, 50, 50, 0, 2, "yellow", i));
+            obstacles.push(new Car(500, -150, 0, roadSpeed, "green", i));
+            bonuses.push(new Bonus(275, -100, 50, 50, 0, roadSpeed, "yellow", i));
         }
     }
 
