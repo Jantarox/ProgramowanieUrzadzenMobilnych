@@ -202,8 +202,12 @@ function Bullet(x, y, id) {
 
     this.draw = function () {
         c.beginPath();
-        c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        
         c.strokeStyle = "blue";
+        c.fillStyle = "white";
+        c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        c.fill();
+        c.closePath();
         c.stroke();
     }
 
@@ -232,6 +236,29 @@ function Bullet(x, y, id) {
         })
     }
 }
+
+function Bonus(x, y, width, height, color, id) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.color = color;
+    this.id = id;
+
+    this.draw = function () {
+        c.beginPath();
+        c.rect(this.x, this.y, this.width, this.height);
+        c.strokeStyle = this.color;
+        c.fillStyle = this.color;
+        c.fillRect(this.x, this.y, this.width, this.height);
+        c.stroke();
+    }
+
+    this.update = function () {
+        this.draw();
+    }
+}
+
 
 function checkCarColision(car1, car2) {
 
