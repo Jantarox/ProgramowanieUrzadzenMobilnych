@@ -17,6 +17,8 @@ document.addEventListener('keydown', (event) => {
         car.startMovingLeft();
     } else if (key === "ArrowRight") {
         car.startMovingRight();
+    } else if(key === " "){
+        car.shoot();
     }
 })
 
@@ -168,6 +170,10 @@ function Car(x, y, dx, dy, color) {
         this.dx = 0;
     }
 
+    this.shoot = function () {
+        bullets.push(new Bullet(this.x, this.y, i));
+    } 
+
     this.update = function () {
         this.y += this.dy;
         if (this.x + this.dx <= 550 && this.x + this.dx >= 260) {
@@ -277,4 +283,7 @@ function draw() {
         }
     });
     car.update();
+    bullets.forEach((bullet) => {
+        bullet.update();
+    })
 }
