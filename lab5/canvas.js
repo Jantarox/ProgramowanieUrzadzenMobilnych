@@ -203,14 +203,16 @@ function Bullet(x, y, id) {
     }
 
     this.hit = function(){
-        circles.forEach((circle) => {
-            var x1 = Math.pow(this.x - circle.x, 2);
-            var y1 = Math.pow(this.y - circle.y, 2);
-            var distance = Math.sqrt(x1 + y1);
-            if(distance <= circle.r + this.r){
+        obstacles.forEach((car) => {
+
+            if( this.x - this.r < car.x - 40 + car.w &&
+                this.x + this.r > car.x - 40 &&
+                this.y + this.r < car.y + car.h &&
+                this.y - this.r > car.y
+                ){
                 console.log(circle.id);
                 bullets = bullets.filter(bullet => bullet.id !== this.id);
-                circles = circles.filter(circle1 => circle.id !== circle1.id);
+                obstacles = obstacles.filter(car1 => car.id !== car1.id);
             }
         })
     }
@@ -235,6 +237,7 @@ c.font = "30px Arial";
 var car = new Car(400, 400, 0, 0, "red");
 
 var obstacles = [];
+var bullets = [];
 
 var roadLines = [];
 roadLines.push(new Roadline(200, -150, roadSpeed));
