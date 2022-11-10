@@ -277,7 +277,21 @@ function checkCarColision(car1, car2) {
     return false;
 }
 
-roadSpeed = 2;
+function checkBonusColision(car, bonus) {
+
+    if (
+        car.x - 40 < bonus.x + bonus.width &&
+        car.x - 40 + car.w > bonus.x &&
+        car.y < bonus.y + bonus.height &&
+        car.h + car.y > bonus.y
+    ) {
+        return true;
+    }
+    return false;
+}
+
+var roadSpeed = 2;
+var points = 0;
 c.font = "30px Arial";
 
 var car = new Car(400, 400, 0, 0, "red");
@@ -332,7 +346,14 @@ function draw() {
 
     bonuses.forEach(bonus => {
         bonus.update();
+        if(checkBonusColision(car, bonus)){
+            c.fillStyle = "red";
+            c.fillText(`Game over!`, canvas.width/2, canvas.height/2);
+        }
     })
+
+    c.fillStyle = "black";
+    c.fillText(`Points: ${points}`, 10, 30);  
 
     car.update();
     bullets.forEach((bullet) => {
