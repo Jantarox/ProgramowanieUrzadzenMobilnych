@@ -14,9 +14,17 @@ document.addEventListener('keydown', (event) => {
     const key = event.key;
 
     if(key === "ArrowLeft"){
-        car.startmovingLeft();
+        car.startMovingLeft();
     }else if(key === "ArrowRight"){
         car.startMovingRight();
+    }
+})
+
+document.addEventListener('keyup', (event) => {
+    const key = event.key;
+
+    if(key === "ArrowLeft" || key === "ArrowRight"){
+        car.stopMoving();
     }
 })
 
@@ -109,9 +117,10 @@ function Roadline(x, y, dy){
     }
 }
 
-function Car(x, y, dy, color){
+function Car(x, y, dx, dy, color){
     this.x = x;
     this.y = y;
+    this.dx = dx;
     this.dy = dy;
     this.color = color;
     this.draw = function(){
@@ -142,27 +151,30 @@ function Car(x, y, dy, color){
         c.stroke();
     }
 
-    this.startmovingLeft = function(){
-        if(this.x - 5 >= 260){
-            this.x -= 5;
-        }
+    this.startMovingLeft = function(){
+        this.dx = -2;
     }
 
     this.startMovingRight = function(){
-        if(this.x + 5 <= 550){
-            this.x += 5;
-        }
+        this.dx = 2;
+    }
+
+    this.stopMoving = function(){
+        this.dx = 0;
     }
 
     this.update = function(){
         this.y += this.dy;
+        if(this.x + this.dx <= 550 && this.x + this.dx >= 260){
+            this.x += this.dx;
+        }
         this.draw()
     }
 }
 
 roadSpeed=2;
 
-var car = new Car(400, 400, 0, "red");
+var car = new Car(400, 400, 0, 0, "red");
 
 var obstacles = [];
 
@@ -190,9 +202,9 @@ function draw() {
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
     if(obstacles.length == 0){
         if(Math.random() > 0.5){
-            obstacles.push(new Car(300, -150, 2, "green"));
+            obstacles.push(new Car(300, -150, 0, 2, "green"));
         }else{
-            obstacles.push(new Car(500, -150, 2, "green"));
+            obstacles.push(new Car(500, -150, 0, 2, "green"));
         }
         
     }
