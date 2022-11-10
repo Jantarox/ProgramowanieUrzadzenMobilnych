@@ -223,8 +223,8 @@ function Bullet(x, y, id) {
 
             if( this.x - this.r < car.x - 40 + car.w &&
                 this.x + this.r > car.x - 40 &&
-                this.y + this.r < car.y + car.h &&
-                this.y - this.r > car.y
+                this.y - this.r < car.y + car.h &&
+                this.y + this.r > car.y
                 ){
                 bullets = bullets.filter(bullet => bullet.id !== this.id);
                 obstacles = obstacles.filter(car1 => car.id !== car1.id);
