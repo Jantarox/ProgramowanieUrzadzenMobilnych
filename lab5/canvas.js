@@ -181,7 +181,8 @@ function Car(x, y, dx, dy, color, id) {
     }
 
     this.shoot = function () {
-        bullets.push(new Bullet(this.x, this.y, i));
+        if(gameInProgress)
+            bullets.push(new Bullet(this.x, this.y, i));
     } 
 
     this.update = function () {
@@ -357,7 +358,7 @@ function draw() {
 
     if(!gameInProgress){
         c.fillStyle = "red";
-        c.fillText(`Game over!`, canvas.width/2, canvas.height/2);
+        c.fillText(`Game over!`, canvas.width/2-80, canvas.height/2);
     }
 
     car.update();
