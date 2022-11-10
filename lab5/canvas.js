@@ -13,9 +13,9 @@ var g = 0.2;
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
-    if(key === "ArrowLeft"){
+    if (key === "ArrowLeft") {
         car.startMovingLeft();
-    }else if(key === "ArrowRight"){
+    } else if (key === "ArrowRight") {
         car.startMovingRight();
     }
 })
@@ -23,7 +23,7 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
     const key = event.key;
 
-    if(key === "ArrowLeft" || key === "ArrowRight"){
+    if (key === "ArrowLeft" || key === "ArrowRight") {
         car.stopMoving();
     }
 })
@@ -84,40 +84,40 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 }
 
-function Roadline(x, y, dy){
+function Roadline(x, y, dy) {
     this.x = x;
     this.y = y;
     this.dy = dy;
-    this.draw = function(){
+    this.draw = function () {
         c.beginPath();
         c.strokeStyle = "black";
         c.fillStyle = "black";
         c.fillRect(this.x, this.y, 400, 150);
         c.strokeStyle = "white";
         c.fillStyle = "white";
-        c.fillRect(this.x+175, this.y, 50, 75);
+        c.fillRect(this.x + 175, this.y, 50, 75);
         c.fillRect(this.x, this.y, 20, 37);
-        c.fillRect(this.x+380, this.y, 20, 37);
-        c.fillRect(this.x, this.y+75, 20, 37);
-        c.fillRect(this.x+380, this.y+75, 20, 37);
+        c.fillRect(this.x + 380, this.y, 20, 37);
+        c.fillRect(this.x, this.y + 75, 20, 37);
+        c.fillRect(this.x + 380, this.y + 75, 20, 37);
         c.strokeStyle = "red";
         c.fillStyle = "red";
-        c.fillRect(this.x, this.y+37, 20, 38);
-        c.fillRect(this.x+380, this.y+37, 20, 38);
-        c.fillRect(this.x, this.y+75+37, 20, 38);
-        c.fillRect(this.x+380, this.y+75+37, 20, 38);
+        c.fillRect(this.x, this.y + 37, 20, 38);
+        c.fillRect(this.x + 380, this.y + 37, 20, 38);
+        c.fillRect(this.x, this.y + 75 + 37, 20, 38);
+        c.fillRect(this.x + 380, this.y + 75 + 37, 20, 38);
 
         c.stroke();
     }
 
-    this.update = function(){
+    this.update = function () {
         this.y += this.dy;
 
         this.draw()
     }
 }
 
-function Car(x, y, dx, dy, color){
+function Car(x, y, dx, dy, color) {
     this.x = x;
     this.y = y;
 
@@ -126,70 +126,72 @@ function Car(x, y, dx, dy, color){
 
     this.dx = dx;
     this.dy = dy;
-    
+
     this.color = color;
-    this.draw = function(){
+    this.draw = function () {
         c.beginPath();
         c.strokeStyle = this.color;
         c.fillStyle = this.color;
-        c.fillRect(this.x-this.w/2, this.y, this.w, 150);
+        c.fillRect(this.x - this.w / 2, this.y, this.w, 150);
         c.strokeStyle = "black";
         c.fillStyle = "white";
-        c.arc(this.x-(this.w/2-10), this.y+30, 20, 0, Math.PI * 2);
+        c.arc(this.x - (this.w / 2 - 10), this.y + 30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x-(this.w/2-10), this.y+this.h-30, 20, 0, Math.PI * 2);
+        c.arc(this.x - (this.w / 2 - 10), this.y + this.h - 30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x+(this.w/2-10), this.y+30, 20, 0, Math.PI * 2);
+        c.arc(this.x + (this.w / 2 - 10), this.y + 30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x+(this.w/2-10), this.y+this.h-30, 20, 0, Math.PI * 2);
+        c.arc(this.x + (this.w / 2 - 10), this.y + this.h - 30, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
     }
 
-    this.startMovingLeft = function(){
+    this.startMovingLeft = function () {
         this.dx = -2;
     }
 
-    this.startMovingRight = function(){
+    this.startMovingRight = function () {
         this.dx = 2;
     }
 
-    this.stopMoving = function(){
+    this.stopMoving = function () {
         this.dx = 0;
     }
 
-    this.update = function(){
+    this.update = function () {
         this.y += this.dy;
-        if(this.x + this.dx <= 550 && this.x + this.dx >= 260){
+        if (this.x + this.dx <= 550 && this.x + this.dx >= 260) {
             this.x += this.dx;
         }
         this.draw()
     }
 }
 
-function checkCarColision(car1, car2){
+function checkCarColision(car1, car2) {
 
     if (
         car1.x - 40 < car2.x - 40 + car2.w &&
         car1.x - 40 + car1.w > car2.x - 40 &&
         car1.y < car2.y + car2.h &&
         car1.h + car1.y > car2.y
-      ){
-        
-      }
+    ) {
+        return true;
+    }
+    return false;
 }
 
-roadSpeed=2;
+roadSpeed = 2;
+c.font = "30px Arial";
 
 var car = new Car(400, 400, 0, 0, "red");
 
@@ -208,25 +210,29 @@ function draw() {
     c.fillStyle = "green";
     c.fillRect(0, 0, canvas.width, canvas.height);
 
-    
+
     roadLines = roadLines.filter(line => line.y < 600);
-    if(roadLines.length < 5){
+    if (roadLines.length < 5) {
         roadLines.push(new Roadline(200, -150, roadSpeed));
     }
     roadLines.forEach((line) => {
         line.update();
     });
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
-    if(obstacles.length == 0){
-        if(Math.random() > 0.5){
+    if (obstacles.length == 0) {
+        if (Math.random() > 0.5) {
             obstacles.push(new Car(300, -150, 0, 2, "green"));
-        }else{
+        } else {
             obstacles.push(new Car(500, -150, 0, 2, "green"));
         }
-        
+
     }
     obstacles.forEach((obstacle) => {
         obstacle.update();
+        if(checkCarColision(car, obstacle)){
+            c.fillStyle = "red";
+            c.fillText(`Game over!`, canvas.width/2, canvas.height/2);
+        }
     });
     car.update();
 }
