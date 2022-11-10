@@ -25,8 +25,10 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
     const key = event.key;
 
-    if (key === "ArrowLeft" || key === "ArrowRight") {
-        car.stopMoving();
+    if (key === "ArrowLeft") {
+        car.stopMovingLeft();
+    } else if (key === "ArrowRight") {
+        car.stopMovingRight();
     }
 })
 
@@ -119,7 +121,7 @@ function Roadline(x, y, dy) {
     }
 }
 
-function Car(x, y, dx, dy, color) {
+function Car(x, y, dx, dy, color, id) {
     this.x = x;
     this.y = y;
 
@@ -128,6 +130,8 @@ function Car(x, y, dx, dy, color) {
 
     this.dx = dx;
     this.dy = dy;
+
+    this.id = id;
 
     this.color = color;
     this.draw = function () {
@@ -166,8 +170,14 @@ function Car(x, y, dx, dy, color) {
         this.dx = 2;
     }
 
-    this.stopMoving = function () {
-        this.dx = 0;
+    this.stopMovingLeft = function () {
+        if(this.dx == -2)
+            this.dx = 0;
+    }
+
+    this.stopMovingRight = function () {
+        if(this.dx == 2)
+            this.dx = 0;
     }
 
     this.shoot = function () {
@@ -216,7 +226,6 @@ function Bullet(x, y, id) {
                 this.y + this.r < car.y + car.h &&
                 this.y - this.r > car.y
                 ){
-                console.log(circle.id);
                 bullets = bullets.filter(bullet => bullet.id !== this.id);
                 obstacles = obstacles.filter(car1 => car.id !== car1.id);
             }
