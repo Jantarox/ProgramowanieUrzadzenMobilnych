@@ -222,8 +222,15 @@ function Car(x, y, dx, dy, color, id) {
   };
 
   this.update = function () {
-    this.y += this.dy;
-    if (this.x + this.dx <= 550 && this.x + this.dx >= 260) {
+    if(this.color === "red"){
+        if (this.y + this.dy < 600 - this.h && this.y + this.dy > 0) {
+            this.y += this.dy; 
+          }
+    }else{
+        this.y += this.dy; 
+    }
+   
+    if (this.x + this.dx < 550 && this.x + this.dx > 250) {
       this.x += this.dx;
     }
     this.draw();
