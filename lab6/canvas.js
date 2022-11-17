@@ -19,6 +19,11 @@ document.addEventListener('keydown', (event) => {
         car.startMovingRight();
     } else if(key === " "){
         car.shoot();
+    } else if(key === "a"){
+        objects.forEach(object => {
+            object.dy++;
+            roadSpeed++;
+        } );
     }
 })
 
@@ -297,10 +302,11 @@ var gameInProgress = true;
 c.font = "30px Arial";
 
 var car = new Car(400, 400, 0, 0, "red");
-
 var obstacles = [];
 var bullets = [];
 var bonuses = [];
+
+
 
 var roadLines = [];
 roadLines.push(new Roadline(200, -150, roadSpeed));
@@ -308,7 +314,8 @@ roadLines.push(new Roadline(200, 0, roadSpeed));
 roadLines.push(new Roadline(200, 150, roadSpeed));
 roadLines.push(new Roadline(200, 300, roadSpeed));
 roadLines.push(new Roadline(200, 450, roadSpeed));
-var circle;
+
+var objects = [car, ...obstacles, ...bonuses, ...roadLines];
 
 function draw() {
     i += di;
@@ -365,4 +372,6 @@ function draw() {
     bullets.forEach((bullet) => {
         bullet.update();
     })
+
+    objects = [...obstacles, ...bonuses, ...roadLines];
 }
