@@ -183,35 +183,35 @@ function Car(x, y, dx, dy, color, id) {
   };
 
   this.startMovingLeft = function () {
-    this.dx = -2;
+    this.dx = -carSpeed;
   };
 
   this.startMovingRight = function () {
-    this.dx = 2;
+    this.dx = carSpeed;
   };
 
   this.stopMovingLeft = function () {
-    if (this.dx == -2) this.dx = 0;
+    if (this.dx == -carSpeed) this.dx = 0;
   };
 
   this.stopMovingRight = function () {
-    if (this.dx == 2) this.dx = 0;
+    if (this.dx == carSpeed) this.dx = 0;
   };
 
   this.startMovingUp = function () {
-    this.dy = -2;
+    this.dy = -carSpeed;
   };
 
   this.startMovingDown = function () {
-    this.dy = 2;
+    this.dy = carSpeed;
   };
 
   this.stopMovingUp = function () {
-    if (this.dy == -2) this.dy = 0;
+    if (this.dy == -carSpeed) this.dy = 0;
   };
 
   this.stopMovingDown = function () {
-    if (this.dy == 2) this.dy = 0;
+    if (this.dy == carSpeed) this.dy = 0;
   };
 
   this.shoot = function () {
@@ -322,6 +322,7 @@ function checkBonusColision(car, bonus) {
 }
 
 var roadSpeed = 3;
+var carSpeed = 3;
 var points = 0;
 var gameInProgress = true;
 c.font = "30px Arial";
