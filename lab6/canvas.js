@@ -20,17 +20,20 @@ document.addEventListener("keydown", (event) => {
   } else if (key === " ") {
     car.shoot();
   } else if (key === "a") {
-    if (roadSpeed < 10)
-      objects.forEach((object) => {
-        object.dy++;
-      });
-    roadSpeed++;
+    if (roadSpeed < 10){
+        objects.forEach((object) => {
+            object.dy++;
+          });
+        roadSpeed++;
+    }
+      
   } else if (key === "z") {
-    if (roadSpeed > 1)
-      objects.forEach((object) => {
-        object.dy--;
-      });
-    roadSpeed--;
+    if (roadSpeed > 1){
+        objects.forEach((object) => {
+            object.dy--;
+          });
+        roadSpeed--;
+    }
   } else if (key === "ArrowUp") {
     car.startMovingUp();
   } else if (key === "ArrowDown") {
@@ -381,8 +384,9 @@ function draw() {
     }
   });
 
-  c.fillStyle = "black";
+  c.fillStyle = "blue";
   c.fillText(`Points: ${points}`, 10, 30);
+  c.fillText(`Speed: ${roadSpeed}0 km/h`, 10, 60);
 
   
 
