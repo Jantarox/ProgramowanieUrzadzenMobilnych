@@ -383,12 +383,14 @@ function draw() {
   c.fillStyle = "black";
   c.fillText(`Points: ${points}`, 10, 30);
 
+  
+
+  car.update();
+
   if (!gameInProgress) {
     c.fillStyle = "red";
     c.fillText(`Game over!`, canvas.width / 2 - 80, canvas.height / 2);
   }
-
-  car.update();
   bullets.forEach((bullet) => {
     bullet.update();
   });
