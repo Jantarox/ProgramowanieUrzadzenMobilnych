@@ -31,6 +31,10 @@ document.addEventListener('keydown', (event) => {
             object.dy--;
         } );
         roadSpeed--;
+     }else if (key === "ArrowUp") {
+        car.startMovingUp();
+    } else if (key === "ArrowDown") {
+        car.startMovingDown();
     }
 })
 
@@ -190,6 +194,24 @@ function Car(x, y, dx, dy, color, id) {
     this.stopMovingRight = function () {
         if(this.dx == 2)
             this.dx = 0;
+    }
+
+    this.startMovingUp = function () {
+        this.dy = -2;
+    }
+
+    this.startMovingDown = function () {
+        this.dy = 2;
+    }
+
+    this.stopMovingUp = function () {
+        if(this.dy == -2)
+            this.dy = 0;
+    }
+
+    this.stopMovingDown = function () {
+        if(this.dy == 2)
+            this.dy = 0;
     }
 
     this.shoot = function () {
