@@ -20,13 +20,13 @@ document.addEventListener('keydown', (event) => {
     } else if(key === " "){
         car.shoot();
     } else if(key === "a"){
-        if(roadSpeed<=10)
+        if(roadSpeed<10)
         objects.forEach(object => {
             object.dy++;
         } );
         roadSpeed++;
     } else if(key === "z"){
-        if(roadSpeed>0)
+        if(roadSpeed>1)
         objects.forEach(object => {
             object.dy--;
         } );
@@ -321,6 +321,7 @@ roadLines.push(new Roadline(200, 0, roadSpeed));
 roadLines.push(new Roadline(200, 150, roadSpeed));
 roadLines.push(new Roadline(200, 300, roadSpeed));
 roadLines.push(new Roadline(200, 450, roadSpeed));
+roadLines.push(new Roadline(200, 600, roadSpeed));
 
 var objects = [...obstacles, ...bonuses, ...roadLines];
 
@@ -329,19 +330,17 @@ function draw() {
     c.fillStyle = "green";
     c.fillRect(0, 0, canvas.width, canvas.height);
 
-
-    roadLines = roadLines.filter(line => line.y < 600);
-    if (roadLines.length < 5) {
-        roadLines.push(new Roadline(200, -150, roadSpeed));
-    }
     roadLines.forEach((line) => {
+        if(line.y>=canvas.height){
+            line.y -= canvas.height + 150;
+        }
         line.update();
     });
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
     bonuses = bonuses.filter(bonus => bonus.y < 600);
 
 
-    if ((i-1) % 250 == 0) {
+    if (obstacles.length == 0) {
         if (Math.random() > 0.5) {
             obstacles.push(new Car(300, -150, 0, roadSpeed, "green", i));
             bonuses.push(new Bonus(475, -100, 50, 50, 0, roadSpeed, "yellow", i));
