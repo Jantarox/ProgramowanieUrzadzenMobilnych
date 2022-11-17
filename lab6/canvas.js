@@ -20,10 +20,17 @@ document.addEventListener('keydown', (event) => {
     } else if(key === " "){
         car.shoot();
     } else if(key === "a"){
+        if(roadSpeed<=10)
         objects.forEach(object => {
             object.dy++;
-            roadSpeed++;
         } );
+        roadSpeed++;
+    } else if(key === "z"){
+        if(roadSpeed>0)
+        objects.forEach(object => {
+            object.dy--;
+        } );
+        roadSpeed--;
     }
 })
 
@@ -315,7 +322,7 @@ roadLines.push(new Roadline(200, 150, roadSpeed));
 roadLines.push(new Roadline(200, 300, roadSpeed));
 roadLines.push(new Roadline(200, 450, roadSpeed));
 
-var objects = [car, ...obstacles, ...bonuses, ...roadLines];
+var objects = [...obstacles, ...bonuses, ...roadLines];
 
 function draw() {
     i += di;
