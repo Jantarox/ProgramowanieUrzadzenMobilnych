@@ -142,6 +142,7 @@ function Car(x, y, dx, dy, color, id) {
 
     this.update = function(){
         this.y += this.dy;
+        this.x += this.dx;
         this.draw()
     }
 }
@@ -165,6 +166,9 @@ var car = new Car(100, 500, 0, 0, "red", 0);
 
 var obstacles = [];
 
+var gameInProgress = true;
+c.font = "30px Arial";
+
 var roadLines = [];
 for(var j = -1; j < 8; j++){
     roadLines.push(new Roadline(j*100, 580, roadSpeed));
@@ -185,17 +189,21 @@ function draw() {
         }
         line.update();
     });
-    obstacles = obstacles.filter(obstacle => obstacle.y < 600);
+    obstacles = obstacles.filter(obstacle => obstacle.x > -200);
     if(obstacles.length == 0){
-        if(Math.random() > 0.5){
-            obstacles.push(new Car(100, 500, 0, 0, "green", i));
-        }else{
-            obstacles.push(new Car(100, 500, 0, 0, "green", i));
-        }
-        
+        obstacles.push(new Car(800, 500, -2, 0, "blue", i));
     }
     obstacles.forEach((obstacle) => {
         obstacle.update();
+        if(checkCarColision(car, obstacle)){
+            gameInProgress = false;
+        }
     });
+
+    if(!gameInProgress){
+        c.fillStyle = "red";
+        c.fillText(`Game over!`, canvas.width/2-80, canvas.height/2);
+    }
+
     car.update();
 }
