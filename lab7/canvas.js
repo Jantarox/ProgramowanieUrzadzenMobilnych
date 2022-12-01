@@ -138,27 +138,29 @@ function Car(x, y, dy, color){
     }
 }
 
-roadSpeed=2;
+roadSpeed= -2;
 
-var car = new Car(400, 400, 0, "red");
+var car = new Car(100, 500, 0, "red");
 
 var obstacles = [];
 
 var roadLines = [];
 for(var i = -1; i < 8; i++){
-    roadLines.push(new Roadline(i*100, 500, roadSpeed));
+    roadLines.push(new Roadline(i*100, 580, roadSpeed));
 }
 var circle;
 
 function draw() {
     i += di;
-    c.fillStyle = "blue";
+    c.fillStyle = "cyan";
     c.fillRect(0, 0, canvas.width, canvas.height);
+    c.fillStyle = "green";
+    c.fillRect(0, canvas.height-200, canvas.width, 200);
 
 
     roadLines.forEach((line) => {
-        if(line.x >= canvas.width){
-            line.x -= canvas.width + 100;
+        if(line.x <= -100){
+            line.x += canvas.width + 100;
         }
         line.update();
     });
