@@ -8,7 +8,7 @@ var c = canvas.getContext("2d");
 setInterval(draw, 10);
 var i = 0;
 var di = 1;
-var g = 0.05;
+var g = 0.04;
 
 document.addEventListener('keydown', (event) => {
     const key = event.key;
@@ -39,7 +39,7 @@ function Roadline(x, y, dx){
     }
 }
 
-function Car(x, y, dx, dy, color, id) {
+function Car(x, y, dx, dy, color) {
     this.x = x;
     this.y = y;
 
@@ -49,9 +49,8 @@ function Car(x, y, dx, dy, color, id) {
     this.dx = dx;
     this.dy = dy;
 
-    this.id = id;
-
     this.jumping = false;
+    this.scored = false;
 
     this.color = color;
     this.draw = function(){
@@ -75,7 +74,7 @@ function Car(x, y, dx, dy, color, id) {
     this.jump = function(){
         if(!this.jumping){
             this.jumping = true;
-            this.dy = -5;
+            this.dy = -4;
         }
     }
 
@@ -109,14 +108,13 @@ function checkCarColision(car1, car2) {
     return false;
 }
 
-roadSpeed= -2;
-
-var car = new Car(100, 500, 0, 0, "red", 0);
-
-var obstacles = [];
-
+var roadSpeed = -2;
+var points = 0;
 var gameInProgress = true;
 c.font = "30px Arial";
+
+var car = new Car(100, 500, 0, 0, "red");
+var obstacles = [];
 
 var roadLines = [];
 for(var j = -1; j < 8; j++){
@@ -140,14 +138,21 @@ function draw() {
     });
     obstacles = obstacles.filter(obstacle => obstacle.x > -200);
     if(obstacles.length == 0){
-        obstacles.push(new Car(800, 500, -2, 0, "blue", i));
+        obstacles.push(new Car(800, 500, -2, 0, "blue"));
     }
     obstacles.forEach((obstacle) => {
         obstacle.update();
         if(checkCarColision(car, obstacle)){
             gameInProgress = false;
         }
+        if(gameInProgress && obstacle.x < 100 - obstacle.w && !obstacle.scored){
+            points++;
+            obstacle.scored = true;
+        }
     });
+
+    c.fillStyle = "black";
+    c.fillText(`Points: ${points}`, 10, 30);  
 
     if(!gameInProgress){
         c.fillStyle = "red";
