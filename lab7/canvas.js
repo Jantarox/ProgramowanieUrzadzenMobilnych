@@ -13,10 +13,8 @@ var g = 0.2;
 document.addEventListener('keydown', (event) => {
     const key = event.key;
 
-    if(key === "ArrowLeft"){
-        car.moveLeft();
-    }else if(key === "ArrowRight"){
-        car.moveRight();
+    if(key === " "){
+        car.jump();
     }
 })
 
@@ -128,16 +126,8 @@ function Car(x, y, dx, dy, color, id) {
         c.stroke();
     }
 
-    this.moveLeft = function(){
-        if(this.x - 5 >= 260){
-            this.x -= 5;
-        }
-    }
-
-    this.moveRight = function(){
-        if(this.x + 5 <= 550){
-            this.x += 5;
-        }
+    this.jump = function(){
+        this.dy = -2;
     }
 
     this.update = function(){
