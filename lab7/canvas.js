@@ -97,10 +97,18 @@ function Roadline(x, y, dx){
     }
 }
 
-function Car(x, y, dy, color){
+function Car(x, y, dx, dy, color, id) {
     this.x = x;
     this.y = y;
+
+    this.w = 150;
+    this.h = 60;
+
+    this.dx = dx;
     this.dy = dy;
+
+    this.id = id;
+
     this.color = color;
     this.draw = function(){
         c.beginPath();
@@ -138,15 +146,28 @@ function Car(x, y, dy, color){
     }
 }
 
+function checkCarColision(car1, car2) {
+
+    if (
+        car1.x < car2.x + car2.w &&
+        car1.x + car1.w > car2.x &&
+        car1.y < car2.y + car2.h &&
+        car1.h + car1.y > car2.y
+    ) {
+        return true;
+    }
+    return false;
+}
+
 roadSpeed= -2;
 
-var car = new Car(100, 500, 0, "red");
+var car = new Car(100, 500, 0, 0, "red", 0);
 
 var obstacles = [];
 
 var roadLines = [];
-for(var i = -1; i < 8; i++){
-    roadLines.push(new Roadline(i*100, 580, roadSpeed));
+for(var j = -1; j < 8; j++){
+    roadLines.push(new Roadline(j*100, 580, roadSpeed));
 }
 var circle;
 
@@ -167,9 +188,9 @@ function draw() {
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
     if(obstacles.length == 0){
         if(Math.random() > 0.5){
-            obstacles.push(new Car(300, -150, 2, "green"));
+            obstacles.push(new Car(100, 500, 0, 0, "green", i));
         }else{
-            obstacles.push(new Car(500, -150, 2, "green"));
+            obstacles.push(new Car(100, 500, 0, 0, "green", i));
         }
         
     }
