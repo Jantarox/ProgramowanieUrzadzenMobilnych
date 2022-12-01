@@ -76,10 +76,10 @@ function Rectangle(x, y, width, height, dx, dy, color) {
     }
 }
 
-function Roadline(x, y, dy){
+function Roadline(x, y, dx){
     this.x = x;
     this.y = y;
-    this.dy = dy;
+    this.dx = dx;
     this.draw = function(){
         c.beginPath();
         c.strokeStyle = "black";
@@ -103,7 +103,7 @@ function Roadline(x, y, dy){
     }
 
     this.update = function(){
-        this.y += this.dy;
+        this.x += this.dx;
 
         this.draw()
     }
