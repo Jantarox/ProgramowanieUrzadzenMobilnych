@@ -8,7 +8,7 @@ var c = canvas.getContext("2d");
 setInterval(draw, 10);
 var i = 0;
 var di = 1;
-var g = 0.04;
+var g = 0.07;
 
 document.addEventListener('keydown', (event) => {
     const key = event.key;
@@ -74,7 +74,7 @@ function Car(x, y, dx, dy, color) {
     this.jump = function(){
         if(!this.jumping){
             this.jumping = true;
-            this.dy = -4.5;
+            this.dy = -5.3;
         }
     }
 
