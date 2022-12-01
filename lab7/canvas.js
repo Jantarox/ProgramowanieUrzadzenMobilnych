@@ -107,6 +107,8 @@ function Car(x, y, dx, dy, color, id) {
 
     this.id = id;
 
+    this.jumping = false;
+
     this.color = color;
     this.draw = function(){
         c.beginPath();
@@ -127,10 +129,17 @@ function Car(x, y, dx, dy, color, id) {
     }
 
     this.jump = function(){
-        this.dy = -2;
+        if(!this.jumping){
+            this.jumping = true;
+            this.dy = -10;
+        }
     }
 
     this.update = function(){
+        if(this.jumping){
+            this.dy += g;
+        }
+
         this.y += this.dy;
         this.x += this.dx;
         this.draw()
