@@ -57,15 +57,15 @@ function Car(x, y, dx, dy, color) {
         c.beginPath();
         c.strokeStyle = this.color;
         c.fillStyle = this.color;
-        c.fillRect(this.x, this.y, 150, 60);
+        c.fillRect(this.x, this.y, this.w, 60);
         c.strokeStyle = "black";
         c.fillStyle = "white";
-        c.arc(this.x+30, this.y+60, 20, 0, Math.PI * 2);
+        c.arc(this.x+30, this.y+this.h, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
         c.beginPath();
-        c.arc(this.x+120, this.y+60, 20, 0, Math.PI * 2);
+        c.arc(this.x+this.w-30, this.y+this.h, 20, 0, Math.PI * 2);
         c.fill();
         c.closePath();
         c.stroke();
@@ -96,7 +96,6 @@ function Car(x, y, dx, dy, color) {
 }
 
 function checkCarColision(car1, car2) {
-
     if (
         car1.x < car2.x + car2.w &&
         car1.x + car1.w > car2.x &&
