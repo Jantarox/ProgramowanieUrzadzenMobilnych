@@ -74,7 +74,7 @@ function Car(x, y, dx, dy, color) {
     this.jump = function(){
         if(!this.jumping){
             this.jumping = true;
-            this.dy = -4;
+            this.dy = -4.5;
         }
     }
 
