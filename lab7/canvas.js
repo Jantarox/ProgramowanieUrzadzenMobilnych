@@ -108,7 +108,7 @@ function checkCarColision(car1, car2) {
     return false;
 }
 
-var roadSpeed = -2;
+var roadSpeed = -5;
 var points = 0;
 var gameInProgress = true;
 c.font = "30px Arial";
@@ -138,7 +138,7 @@ function draw() {
     });
     obstacles = obstacles.filter(obstacle => obstacle.x > -200);
     if(obstacles.length == 0){
-        obstacles.push(new Car(800, 500, -2, 0, "blue"));
+        obstacles.push(new Car(800, 500, roadSpeed+2, 0, "blue"));
     }
     obstacles.forEach((obstacle) => {
         obstacle.update();
