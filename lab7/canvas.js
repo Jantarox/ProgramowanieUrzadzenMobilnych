@@ -82,23 +82,12 @@ function Roadline(x, y, dx){
     this.dx = dx;
     this.draw = function(){
         c.beginPath();
-        c.strokeStyle = "black";
-        c.fillStyle = "black";
-        c.fillRect(this.x, this.y, 400, 150);
         c.strokeStyle = "white";
         c.fillStyle = "white";
-        c.fillRect(this.x+175, this.y, 50, 75);
-        c.fillRect(this.x, this.y, 20, 37);
-        c.fillRect(this.x+380, this.y, 20, 37);
-        c.fillRect(this.x, this.y+75, 20, 37);
-        c.fillRect(this.x+380, this.y+75, 20, 37);
+        c.fillRect(this.x, this.y, 100, 20);
         c.strokeStyle = "red";
         c.fillStyle = "red";
-        c.fillRect(this.x, this.y+37, 20, 38);
-        c.fillRect(this.x+380, this.y+37, 20, 38);
-        c.fillRect(this.x, this.y+75+37, 20, 38);
-        c.fillRect(this.x+380, this.y+75+37, 20, 38);
-
+        c.fillRect(this.x+50, this.y, 50, 20);
         c.stroke();
     }
 
@@ -167,11 +156,9 @@ var car = new Car(400, 400, 0, "red");
 var obstacles = [];
 
 var roadLines = [];
-roadLines.push(new Roadline(200, -150, roadSpeed));
-roadLines.push(new Roadline(200, 0, roadSpeed));
-roadLines.push(new Roadline(200, 150, roadSpeed));
-roadLines.push(new Roadline(200, 300, roadSpeed));
-roadLines.push(new Roadline(200, 450, roadSpeed));
+for(var i = 0; i < 8; i++){
+    roadLines.push(new Roadline(i*100, 700, roadSpeed));
+}
 var circle;
 
 function draw() {
@@ -180,14 +167,10 @@ function draw() {
     c.fillRect(0, 0, canvas.width, canvas.height);
 
 
-
-
-    
-    roadLines = roadLines.filter(line => line.y < 600);
-    if(roadLines.length < 5){
-        roadLines.push(new Roadline(200, -150, roadSpeed));
-    }
     roadLines.forEach((line) => {
+        if(line.x >= canvas.width){
+            line.x -= canvas.width + 100;
+        }
         line.update();
     });
     obstacles = obstacles.filter(obstacle => obstacle.y < 600);
