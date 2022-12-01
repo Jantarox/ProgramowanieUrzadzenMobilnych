@@ -93,7 +93,6 @@ function Roadline(x, y, dx){
 
     this.update = function(){
         this.x += this.dx;
-
         this.draw()
     }
 }
@@ -156,14 +155,14 @@ var car = new Car(400, 400, 0, "red");
 var obstacles = [];
 
 var roadLines = [];
-for(var i = 0; i < 8; i++){
-    roadLines.push(new Roadline(i*100, 700, roadSpeed));
+for(var i = -1; i < 8; i++){
+    roadLines.push(new Roadline(i*100, 500, roadSpeed));
 }
 var circle;
 
 function draw() {
     i += di;
-    c.fillStyle = "green";
+    c.fillStyle = "blue";
     c.fillRect(0, 0, canvas.width, canvas.height);
 
 
