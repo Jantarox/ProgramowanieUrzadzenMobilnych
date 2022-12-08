@@ -168,6 +168,28 @@ function GameBoard(x, y, width, height) {
         }
     }
 
+    this.checkForCapture = function(){
+
+        var hasLiberty = []
+        for (var i = 0; i < this.width; i++) {
+            var row = [];
+            for (var j = 0; j < this.height; j++) {
+                if(this.board[i][j] !== 0)
+                    row.push(false);
+                else
+                    row.push(true);
+            }
+            this.hasLiberty.push(row);
+        }
+
+        var hasChanged = true;
+        while(hasChanged){
+            hasChanged = false;
+            
+        }
+
+    }
+
     this.endGame = function (draw) {
         this.gameInProgress = false;
         if(draw)
