@@ -228,12 +228,6 @@ function GameBoard(x, y, width, height) {
     }
 }
 
-var rects = [];
-function drawRects() {
-    rects.forEach(rect => rect.draw())
-}
-
-var circle;
 var gameBoard = new GameBoard(150, 150, 7, 6);
 gameBoard.init();
 
@@ -241,7 +235,5 @@ function draw() {
     i += di;
     c.clearRect(0, 0, innerWidth, innerHeight);
 
-
     gameBoard.draw();
-    drawRects();
 }
