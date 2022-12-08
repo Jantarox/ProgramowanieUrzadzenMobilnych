@@ -49,10 +49,13 @@ function GameBoard(x, y, width, height) {
     this.y = y;
     this.width = width;
     this.height = height;
-
     this.board = [];
     this.circleRadius = 25;
     this.margin = 20;
+
+    this.gameInProgress = true;
+    this.redTurn = true;
+    this.newCirclePosition = 0;
 
     this.init = function () {
 
@@ -100,6 +103,26 @@ function GameBoard(x, y, width, height) {
                 c.closePath();
                 c.stroke();
             }
+        }
+
+        if(this.gameInProgress){
+            var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * this.newCirclePosition;
+            var circleY = this.y - this.margin - this.circleRadius;
+
+            c.beginPath();
+
+            if (this.redTurn === true) {
+                c.strokeStyle = "red";
+                c.fillStyle = "red";
+            } else{
+                c.strokeStyle = "yellow";
+                c.fillStyle = "yellow";
+            }
+
+            c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
+            c.fill();
+            c.closePath();
+            c.stroke();
         }
         console.log(this.board);
 
