@@ -17,7 +17,7 @@ document.addEventListener('keydown', (event) => {
     } else if (key === "ArrowRight") {
         gameBoard.moveNewCircleRight();
     } else if (key === " ") {
-
+        gameBoard.dropCircle();
     }
 })
 
@@ -139,13 +139,30 @@ function GameBoard(x, y, width, height) {
     }
 
     this.moveNewCircleRight = function () {
-        if(this.gameInProgress && this.newCirclePosition + 1 < this.width)
+        if (this.gameInProgress && this.newCirclePosition + 1 < this.width)
             this.newCirclePosition++;
     }
 
     this.moveNewCircleLeft = function () {
-        if(this.gameInProgress && this.newCirclePosition - 1 >= 0)
+        if (this.gameInProgress && this.newCirclePosition - 1 >= 0)
             this.newCirclePosition--;
+    }
+
+    this.dropCircle = function () {
+        if (this.board[this.newCirclePosition][0] !== 0)
+            return;
+
+        for (var i = 0; i < this.height - 1; i++) {
+            if(this.board[this.newCirclePosition][i + 1] !== 0){
+                this.board[this.newCirclePosition][i] = this.redTurn ? 1 : 2;
+                this.redTurn = !this.redTurn;
+
+                return;
+            }
+        }
+
+        this.board[this.newCirclePosition][this.height-1] = this.redTurn ? 1 : 2;
+        this.redTurn = !this.redTurn;
     }
 }
 
