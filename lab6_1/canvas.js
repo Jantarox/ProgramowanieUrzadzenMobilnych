@@ -235,5 +235,9 @@ function draw() {
     i += di;
     c.clearRect(0, 0, innerWidth, innerHeight);
 
+    c.font = "20px Arial";
+    c.fillStyle = "black";
+    c.fillText("Use arrows to choose a place to drop a token, use space to drop a token", 10, 30);
+
     gameBoard.draw();
 }
