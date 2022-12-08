@@ -224,7 +224,7 @@ function GameBoard(x, y, width, height) {
         else if (this.redTurn)
             this.text = "Red wins!";
         else
-            this.text = "Yellow wins";
+            this.text = "Yellow wins!";
     }
 }
 
