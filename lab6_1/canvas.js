@@ -44,8 +44,37 @@ function Rectangle(x, y, width, height) {
     }
 }
 
-function GameBoard(){
-    
+function GameBoard(x, y, width, height){
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.board = [];
+    this.circleRadius = 20;
+    this.margin = 20;
+
+    this.init = function(){
+
+        for(var i = 0; i < this.height; i++){
+            var row = [];
+            for(var j = 0; j < this.width; j++){
+                row.push(0);
+            }
+            this.board.push(row);
+        }
+        console.log(this.board);
+    }
+
+    this.draw = function() {
+        var totalWidth = (this.circleRadius*2 + this.margin) * this.width + this.margin;
+        var totalHeight = (this.circleRadius*2 + this.margin) * this.height + this.margin;
+
+        c.beginPath();
+        c.strokeStyle = "blue";
+        c.fillStyle = "blue";
+        
+
+    }
 }
 
 var rects = [];
@@ -54,10 +83,14 @@ function drawRects() {
 }
 
 var circle;
+var gameBoard = new GameBoard(50, 50, 7, 6);
+gameBoard.init();
 
 function draw() {
     i += di;
     c.clearRect(0, 0, innerWidth, innerHeight);
+
+
 
     drawRects();
 }
