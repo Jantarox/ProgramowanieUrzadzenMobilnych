@@ -148,6 +148,32 @@ function GameBoard(x, y, width, height) {
         c.fillText(this.text, this.x, this.y - this.margin)
     }
 
+    this.putStone = function(x, y){
+        for (var i = 0; i < this.height; i++) {
+            for (var j = 0; j < this.width; j++) {
+                var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * j;
+                var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
+
+                
+
+                if (this.board[j][i] === 0) {
+                    continue;
+                } else if (this.board[j][i] === 1) {
+                    c.strokeStyle = "black";
+                    c.fillStyle = "black";
+                } else if (this.board[j][i] === 2) {
+                    c.strokeStyle = "white";
+                    c.fillStyle = "white";
+                }
+
+                c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
+                c.fill();
+                c.closePath();
+                c.stroke();
+            }
+        }
+    }
+
     this.endGame = function (draw) {
         this.gameInProgress = false;
         if(draw)
