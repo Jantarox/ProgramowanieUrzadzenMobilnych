@@ -94,6 +94,24 @@ function GameBoard(x, y, width, height) {
         c.closePath();
         c.stroke();
 
+        for (var i = 0; i < this.width; i++){
+            c.beginPath();
+            c.moveTo(this.x + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i, this.y)
+            c.lineTo(this.x + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i, this.y+totalHeight);
+            c.strokeStyle = "black";
+            c.lineWidth = 4;
+            c.stroke();
+        }
+
+        for (var i = 0; i < this.height; i++){
+            c.beginPath();
+            c.moveTo(this.x, this.y + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i)
+            c.lineTo(this.x + totalWidth, this.y + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i);
+            c.strokeStyle = "black";
+            c.lineWidth = 4;
+            c.stroke();
+        }
+
 
         for (var i = 0; i < this.height; i++) {
             for (var j = 0; j < this.width; j++) {
@@ -103,14 +121,13 @@ function GameBoard(x, y, width, height) {
                 var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
 
                 if (this.board[j][i] === 0) {
+                    continue;
+                } else if (this.board[j][i] === 1) {
+                    c.strokeStyle = "black";
+                    c.fillStyle = "black";
+                } else if (this.board[j][i] === 2) {
                     c.strokeStyle = "white";
                     c.fillStyle = "white";
-                } else if (this.board[j][i] === 1) {
-                    c.strokeStyle = "red";
-                    c.fillStyle = "red";
-                } else if (this.board[j][i] === 2) {
-                    c.strokeStyle = "yellow";
-                    c.fillStyle = "yellow";
                 }
 
                 c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
