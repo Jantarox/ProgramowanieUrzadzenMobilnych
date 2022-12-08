@@ -88,8 +88,8 @@ function GameBoard(x, y, width, height) {
         var totalHeight = (this.circleRadius * 2 + this.margin) * this.height + this.margin;
 
         c.beginPath();
-        c.strokeStyle = "blue";
-        c.fillStyle = "blue";
+        c.strokeStyle = "brown";
+        c.fillStyle = "brown";
         c.fillRect(this.x, this.y, totalWidth, totalHeight);
         c.closePath();
         c.stroke();
