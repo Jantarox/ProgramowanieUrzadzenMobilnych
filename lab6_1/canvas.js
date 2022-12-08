@@ -154,26 +154,56 @@ function GameBoard(x, y, width, height) {
             return;
 
         for (var i = 0; i < this.height - 1; i++) {
-            if(this.board[this.newCirclePosition][i + 1] !== 0){
+            if (this.board[this.newCirclePosition][i + 1] !== 0) {
                 this.board[this.newCirclePosition][i] = this.redTurn ? 1 : 2;
-                this.redTurn = !this.redTurn;
                 this.circles++;
-                this.checkWinner();
+                console.log(this.checkWinner(this.redTurn ? 1 : 2));
+                this.redTurn = !this.redTurn;
                 return;
             }
         }
 
-        this.board[this.newCirclePosition][this.height-1] = this.redTurn ? 1 : 2;
-        this.redTurn = !this.redTurn;
+        this.board[this.newCirclePosition][this.height - 1] = this.redTurn ? 1 : 2;
         this.circles++;
-        this.checkWinner();
+        console.log(this.checkWinner(this.redTurn ? 1 : 2));
+        this.redTurn = !this.redTurn;
     }
 
-    this.checkWinner = function() {
-        
+    this.checkWinner = function (player) {
+
+        for (var j = 0; j < this.height - 3 ; j++ ) {
+            for (var i = 0; i < this.width; i++) {
+                if (this.board[i][j] === player && this.board[i][j + 1] === player && this.board[i][j + 2] == player && this.board[i][j + 3] === player) {
+                    return true;
+                }
+            }
+        }
+
+        for (var i = 0; i <this.width - 3 ; i++ ) {
+            for (var j = 0; j < this.height; j++) {
+                if (this.board[i][j] === player && this.board[i + 1][j] === player && this.board[i + 2][j] === player && this.board[i + 3][j] === player) {
+                    return true;
+                }
+            }
+        }
+
+        for (var i = 3; i < this.width; i++) {
+            for (var j = 0; j < this.height - 3; j++) {
+                if (this.board[i][j] === player && this.board[i - 1][j + 1] === player && this.board[i - 2][j + 2] === player && this.board[i - 3][j + 3] === player)
+                    return true;
+            }
+        }
+
+        for (var i = 3; i < this.width; i++) {
+            for (var j = 3; j < this.height; j++) {
+                if (this.board[i][j] === player && this.board[i - 1][j - 1] === player && this.board[i - 2][j - 2] === player && this.board[i - 3][j - 3] === player)
+                    return true;
+            }
+        }
+        return false;
 
 
-        if(this.circles === this.width * this.height)
+        if (this.circles === this.width * this.height)
             this.gameInProgress = false;
     }
 }
