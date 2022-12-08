@@ -49,6 +49,7 @@ function GameBoard(x, y, width, height){
     this.y = y;
     this.width = width;
     this.height = height;
+
     this.board = [];
     this.circleRadius = 20;
     this.margin = 20;
@@ -72,8 +73,10 @@ function GameBoard(x, y, width, height){
         c.beginPath();
         c.strokeStyle = "blue";
         c.fillStyle = "blue";
-        
+        c.fillRect(this.x, this.y, totalWidth, totalHeight);
 
+        c.closePath();
+        c.stroke();
     }
 }
 
@@ -91,6 +94,6 @@ function draw() {
     c.clearRect(0, 0, innerWidth, innerHeight);
 
 
-
+    gameBoard.draw();
     drawRects();
 }
