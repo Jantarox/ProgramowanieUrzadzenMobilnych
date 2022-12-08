@@ -9,6 +9,18 @@ setInterval(draw, 10);
 var i = 0;
 var di = 1;
 
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    if (key === "ArrowLeft") {
+        gameBoard.moveNewCircleLeft();
+    } else if (key === "ArrowRight") {
+        gameBoard.moveNewCircleRight();
+    } else if (key === " ") {
+
+    }
+})
+
 function Circle(x, y, dx, dy, r) {
     this.x = x;
     this.y = y;
@@ -105,7 +117,7 @@ function GameBoard(x, y, width, height) {
             }
         }
 
-        if(this.gameInProgress){
+        if (this.gameInProgress) {
             var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * this.newCirclePosition;
             var circleY = this.y - this.margin - this.circleRadius;
 
@@ -114,7 +126,7 @@ function GameBoard(x, y, width, height) {
             if (this.redTurn === true) {
                 c.strokeStyle = "red";
                 c.fillStyle = "red";
-            } else{
+            } else {
                 c.strokeStyle = "yellow";
                 c.fillStyle = "yellow";
             }
@@ -124,9 +136,16 @@ function GameBoard(x, y, width, height) {
             c.closePath();
             c.stroke();
         }
-        console.log(this.board);
+    }
 
+    this.moveNewCircleRight = function () {
+        if(this.gameInProgress && this.newCirclePosition + 1 < this.width)
+            this.newCirclePosition++;
+    }
 
+    this.moveNewCircleLeft = function () {
+        if(this.gameInProgress && this.newCirclePosition - 1 >= 0)
+            this.newCirclePosition--;
     }
 }
 
