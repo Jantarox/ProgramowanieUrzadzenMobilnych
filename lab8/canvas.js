@@ -21,11 +21,11 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
-document.addEventListener('click', (event) => {
+document.addEventListener('mousedown', (event) => {
     const button = event.button;
 
     if (button === 0) {
-        gameBoard.putStone();
+        gameBoard.putStone(event.clientX, event.clientY);
     }
 })
 
@@ -74,9 +74,9 @@ function GameBoard(x, y, width, height) {
     this.margin = 20;
 
     this.gameInProgress = true;
-    this.whiteTurn = true;
+    this.blackTurn = true;
 
-    this.text = "Whites turn";
+    this.text = "Blacks turn";
 
     this.init = function () {
 
@@ -126,6 +126,8 @@ function GameBoard(x, y, width, height) {
                 var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * j;
                 var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
 
+
+
                 if (this.board[j][i] === 0) {
                     continue;
                 } else if (this.board[j][i] === 1) {
@@ -148,28 +150,20 @@ function GameBoard(x, y, width, height) {
         c.fillText(this.text, this.x, this.y - this.margin)
     }
 
-    this.putStone = function(x, y){
+    this.putStone = function(mouseX, mouseY){
         for (var i = 0; i < this.height; i++) {
             for (var j = 0; j < this.width; j++) {
                 var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * j;
                 var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
 
-                
-
-                if (this.board[j][i] === 0) {
-                    continue;
-                } else if (this.board[j][i] === 1) {
-                    c.strokeStyle = "black";
-                    c.fillStyle = "black";
-                } else if (this.board[j][i] === 2) {
-                    c.strokeStyle = "white";
-                    c.fillStyle = "white";
+                if(pythagoras(mouseX-10, mouseY-10, circleX, circleY) <= this.circleRadius + 2){
+                    if(this.board[j][i] !== 0)
+                        return;
+                    this.board[j][i] = this.blackTurn ? 1 : 2;
+                    this.blackTurn = !this.blackTurn;
+                    this.text = this.blackTurn ? "Blacks turn" : "Whites turn";
+                    return;
                 }
-
-                c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
-                c.fill();
-                c.closePath();
-                c.stroke();
             }
         }
     }
@@ -183,6 +177,12 @@ function GameBoard(x, y, width, height) {
         else
             this.text = "Yellow wins!";
     }
+}
+
+pythagoras = function(x1, y1, x2, y2) {
+    var x = Math.pow(x1 - x2, 2);
+    var y = Math.pow(y1 - y2, 2);
+    return Math.sqrt(x + y);
 }
 
 var gameBoard = new GameBoard(50, 50, 14, 10);
