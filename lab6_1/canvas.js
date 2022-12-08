@@ -68,6 +68,7 @@ function GameBoard(x, y, width, height) {
     this.gameInProgress = true;
     this.redTurn = true;
     this.newCirclePosition = 0;
+    this.circles = 0
 
     this.init = function () {
 
@@ -156,13 +157,24 @@ function GameBoard(x, y, width, height) {
             if(this.board[this.newCirclePosition][i + 1] !== 0){
                 this.board[this.newCirclePosition][i] = this.redTurn ? 1 : 2;
                 this.redTurn = !this.redTurn;
-
+                this.circles++;
+                this.checkWinner();
                 return;
             }
         }
 
         this.board[this.newCirclePosition][this.height-1] = this.redTurn ? 1 : 2;
         this.redTurn = !this.redTurn;
+        this.circles++;
+        this.checkWinner();
+    }
+
+    this.checkWinner = function() {
+        
+
+
+        if(this.circles === this.width * this.height)
+            this.gameInProgress = false;
     }
 }
 
