@@ -70,6 +70,8 @@ function GameBoard(x, y, width, height) {
     this.newCirclePosition = 0;
     this.circles = 0
 
+    this.text = "Reds turn";
+
     this.init = function () {
 
         for (var i = 0; i < this.width; i++) {
@@ -137,6 +139,10 @@ function GameBoard(x, y, width, height) {
             c.closePath();
             c.stroke();
         }
+
+        c.font = "30px Arial";
+        c.fillStyle = "black";
+        c.fillText(this.text, this.x, this.y - 2*(this.circleRadius + this.margin))
     }
 
     this.moveNewCircleRight = function () {
@@ -150,6 +156,9 @@ function GameBoard(x, y, width, height) {
     }
 
     this.dropCircle = function () {
+        if(!this.gameInProgress)
+            return;
+
         if (this.board[this.newCirclePosition][0] !== 0)
             return;
 
@@ -157,6 +166,7 @@ function GameBoard(x, y, width, height) {
             if (this.board[this.newCirclePosition][i + 1] !== 0) {
                 this.board[this.newCirclePosition][i] = this.redTurn ? 1 : 2;
                 this.circles++;
+                this.text = this.redTurn ? "Yellows turn" : "Reds turn";
                 this.checkWinner();
                 this.redTurn = !this.redTurn;
                 return;
@@ -165,6 +175,7 @@ function GameBoard(x, y, width, height) {
 
         this.board[this.newCirclePosition][this.height - 1] = this.redTurn ? 1 : 2;
         this.circles++;
+        this.text = this.redTurn ? "Yellows turn" : "Reds turn";
         this.checkWinner();
         this.redTurn = !this.redTurn;
     }
@@ -207,7 +218,13 @@ function GameBoard(x, y, width, height) {
     }
 
     this.endGame = function (draw) {
-        
+        this.gameInProgress = false;
+        if(draw)
+            this.text = "Draw!";
+        else if (this.redTurn)
+            this.text = "Red wins!";
+        else
+            this.text = "Yellow wins";
     }
 }
 
