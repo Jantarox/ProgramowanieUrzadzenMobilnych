@@ -21,6 +21,14 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
+document.addEventListener('click', (event) => {
+    const button = event.button;
+
+    if (button === 0) {
+        gameBoard.putStone();
+    }
+})
+
 function Circle(x, y, dx, dy, r) {
     this.x = x;
     this.y = y;
@@ -62,15 +70,13 @@ function GameBoard(x, y, width, height) {
     this.width = width;
     this.height = height;
     this.board = [];
-    this.circleRadius = 25;
+    this.circleRadius = 15;
     this.margin = 20;
 
     this.gameInProgress = true;
-    this.redTurn = true;
-    this.newCirclePosition = 0;
-    this.circles = 0
+    this.whiteTurn = true;
 
-    this.text = "Reds turn";
+    this.text = "Whites turn";
 
     this.init = function () {
 
@@ -88,11 +94,29 @@ function GameBoard(x, y, width, height) {
         var totalHeight = (this.circleRadius * 2 + this.margin) * this.height + this.margin;
 
         c.beginPath();
-        c.strokeStyle = "blue";
-        c.fillStyle = "blue";
+        c.strokeStyle = "brown";
+        c.fillStyle = "brown";
         c.fillRect(this.x, this.y, totalWidth, totalHeight);
         c.closePath();
         c.stroke();
+
+        for (var i = 0; i < this.width; i++){
+            c.beginPath();
+            c.moveTo(this.x + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i, this.y)
+            c.lineTo(this.x + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i, this.y+totalHeight);
+            c.strokeStyle = "black";
+            c.lineWidth = 4;
+            c.stroke();
+        }
+
+        for (var i = 0; i < this.height; i++){
+            c.beginPath();
+            c.moveTo(this.x, this.y + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i)
+            c.lineTo(this.x + totalWidth, this.y + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i);
+            c.strokeStyle = "black";
+            c.lineWidth = 3;
+            c.stroke();
+        }
 
 
         for (var i = 0; i < this.height; i++) {
@@ -103,14 +127,13 @@ function GameBoard(x, y, width, height) {
                 var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
 
                 if (this.board[j][i] === 0) {
+                    continue;
+                } else if (this.board[j][i] === 1) {
+                    c.strokeStyle = "black";
+                    c.fillStyle = "black";
+                } else if (this.board[j][i] === 2) {
                     c.strokeStyle = "white";
                     c.fillStyle = "white";
-                } else if (this.board[j][i] === 1) {
-                    c.strokeStyle = "red";
-                    c.fillStyle = "red";
-                } else if (this.board[j][i] === 2) {
-                    c.strokeStyle = "yellow";
-                    c.fillStyle = "yellow";
                 }
 
                 c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
@@ -120,101 +143,35 @@ function GameBoard(x, y, width, height) {
             }
         }
 
-        if (this.gameInProgress) {
-            var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * this.newCirclePosition;
-            var circleY = this.y - this.margin - this.circleRadius;
-
-            c.beginPath();
-
-            if (this.redTurn === true) {
-                c.strokeStyle = "red";
-                c.fillStyle = "red";
-            } else {
-                c.strokeStyle = "yellow";
-                c.fillStyle = "yellow";
-            }
-
-            c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
-            c.fill();
-            c.closePath();
-            c.stroke();
-        }
-
         c.font = "30px Arial";
         c.fillStyle = "black";
-        c.fillText(this.text, this.x, this.y - 2*(this.circleRadius + this.margin))
+        c.fillText(this.text, this.x, this.y - this.margin)
     }
 
-    this.moveNewCircleRight = function () {
-        if (this.gameInProgress && this.newCirclePosition + 1 < this.width)
-            this.newCirclePosition++;
-    }
+    this.putStone = function(x, y){
+        for (var i = 0; i < this.height; i++) {
+            for (var j = 0; j < this.width; j++) {
+                var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * j;
+                var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
 
-    this.moveNewCircleLeft = function () {
-        if (this.gameInProgress && this.newCirclePosition - 1 >= 0)
-            this.newCirclePosition--;
-    }
+                
 
-    this.dropCircle = function () {
-        if(!this.gameInProgress)
-            return;
-
-        if (this.board[this.newCirclePosition][0] !== 0)
-            return;
-
-        for (var i = 0; i < this.height - 1; i++) {
-            if (this.board[this.newCirclePosition][i + 1] !== 0) {
-                this.board[this.newCirclePosition][i] = this.redTurn ? 1 : 2;
-                this.circles++;
-                this.text = this.redTurn ? "Yellows turn" : "Reds turn";
-                this.checkWinner();
-                this.redTurn = !this.redTurn;
-                return;
-            }
-        }
-
-        this.board[this.newCirclePosition][this.height - 1] = this.redTurn ? 1 : 2;
-        this.circles++;
-        this.text = this.redTurn ? "Yellows turn" : "Reds turn";
-        this.checkWinner();
-        this.redTurn = !this.redTurn;
-    }
-
-    this.checkWinner = function () {
-        var player = this.redTurn ? 1 : 2
-
-        for (var j = 0; j < this.height - 3; j++) {
-            for (var i = 0; i < this.width; i++) {
-                if (this.board[i][j] === player && this.board[i][j + 1] === player && this.board[i][j + 2] == player && this.board[i][j + 3] === player) {
-                    this.endGame(false);
+                if (this.board[j][i] === 0) {
+                    continue;
+                } else if (this.board[j][i] === 1) {
+                    c.strokeStyle = "black";
+                    c.fillStyle = "black";
+                } else if (this.board[j][i] === 2) {
+                    c.strokeStyle = "white";
+                    c.fillStyle = "white";
                 }
+
+                c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
+                c.fill();
+                c.closePath();
+                c.stroke();
             }
         }
-
-        for (var i = 0; i < this.width - 3; i++) {
-            for (var j = 0; j < this.height; j++) {
-                if (this.board[i][j] === player && this.board[i + 1][j] === player && this.board[i + 2][j] === player && this.board[i + 3][j] === player) {
-                    this.endGame(false);
-                }
-            }
-        }
-
-        for (var i = 3; i < this.width; i++) {
-            for (var j = 0; j < this.height - 3; j++) {
-                if (this.board[i][j] === player && this.board[i - 1][j + 1] === player && this.board[i - 2][j + 2] === player && this.board[i - 3][j + 3] === player)
-                this.endGame(false);
-            }
-        }
-
-        for (var i = 3; i < this.width; i++) {
-            for (var j = 3; j < this.height; j++) {
-                if (this.board[i][j] === player && this.board[i - 1][j - 1] === player && this.board[i - 2][j - 2] === player && this.board[i - 3][j - 3] === player)
-                this.endGame(false);
-            }
-        }
-
-        if (this.circles === this.width * this.height)
-            this.endGame(true);
     }
 
     this.endGame = function (draw) {
@@ -228,7 +185,7 @@ function GameBoard(x, y, width, height) {
     }
 }
 
-var gameBoard = new GameBoard(150, 150, 7, 6);
+var gameBoard = new GameBoard(50, 50, 14, 10);
 gameBoard.init();
 
 function draw() {
@@ -237,7 +194,7 @@ function draw() {
 
     c.font = "20px Arial";
     c.fillStyle = "black";
-    c.fillText("Use arrows to choose a place to drop a token, use space to drop a token", 10, 30);
+    // c.fillText("Use arrows to choose a place to drop a token, use space to drop a token", 10, 30);
 
     gameBoard.draw();
 }
