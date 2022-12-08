@@ -21,6 +21,14 @@ document.addEventListener('keydown', (event) => {
     }
 })
 
+document.addEventListener('click', (event) => {
+    const button = event.button;
+
+    if (button === 0) {
+        gameBoard.putStone();
+    }
+})
+
 function Circle(x, y, dx, dy, r) {
     this.x = x;
     this.y = y;
@@ -62,7 +70,7 @@ function GameBoard(x, y, width, height) {
     this.width = width;
     this.height = height;
     this.board = [];
-    this.circleRadius = 25;
+    this.circleRadius = 15;
     this.margin = 20;
 
     this.gameInProgress = true;
@@ -106,7 +114,7 @@ function GameBoard(x, y, width, height) {
             c.moveTo(this.x, this.y + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i)
             c.lineTo(this.x + totalWidth, this.y + this.margin + this.circleRadius + (this.circleRadius * 2 + this.margin) * i);
             c.strokeStyle = "black";
-            c.lineWidth = 4;
+            c.lineWidth = 3;
             c.stroke();
         }
 
@@ -151,7 +159,7 @@ function GameBoard(x, y, width, height) {
     }
 }
 
-var gameBoard = new GameBoard(150, 150, 7, 6);
+var gameBoard = new GameBoard(50, 50, 14, 10);
 gameBoard.init();
 
 function draw() {
