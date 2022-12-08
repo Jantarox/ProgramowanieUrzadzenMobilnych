@@ -74,9 +74,27 @@ function GameBoard(x, y, width, height){
         c.strokeStyle = "blue";
         c.fillStyle = "blue";
         c.fillRect(this.x, this.y, totalWidth, totalHeight);
-
         c.closePath();
         c.stroke();
+
+        c.strokeStyle = "white";
+        c.fillStyle = "white";
+        for(var i = 0; i < this.height; i++){
+            for(var j = 0; j < this.width; j++){
+                c.beginPath();
+
+                var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * j;
+                var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
+
+                c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
+                c.fill();
+                c.closePath();
+                c.stroke();
+            }
+        }
+        console.log(this.board);
+
+        
     }
 }
 
