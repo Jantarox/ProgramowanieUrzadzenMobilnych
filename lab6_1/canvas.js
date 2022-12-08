@@ -44,7 +44,7 @@ function Rectangle(x, y, width, height) {
     }
 }
 
-function GameBoard(x, y, width, height){
+function GameBoard(x, y, width, height) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -54,21 +54,23 @@ function GameBoard(x, y, width, height){
     this.circleRadius = 20;
     this.margin = 20;
 
-    this.init = function(){
+    this.init = function () {
 
-        for(var i = 0; i < this.height; i++){
+        for (var i = 0; i < this.width; i++) {
             var row = [];
-            for(var j = 0; j < this.width; j++){
+            for (var j = 0; j < this.height; j++) {
                 row.push(0);
             }
             this.board.push(row);
         }
         console.log(this.board);
+        this.board[0][1] = 2;
+        this.board[3][2] = 1;
     }
 
-    this.draw = function() {
-        var totalWidth = (this.circleRadius*2 + this.margin) * this.width + this.margin;
-        var totalHeight = (this.circleRadius*2 + this.margin) * this.height + this.margin;
+    this.draw = function () {
+        var totalWidth = (this.circleRadius * 2 + this.margin) * this.width + this.margin;
+        var totalHeight = (this.circleRadius * 2 + this.margin) * this.height + this.margin;
 
         c.beginPath();
         c.strokeStyle = "blue";
@@ -77,14 +79,24 @@ function GameBoard(x, y, width, height){
         c.closePath();
         c.stroke();
 
-        c.strokeStyle = "white";
-        c.fillStyle = "white";
-        for(var i = 0; i < this.height; i++){
-            for(var j = 0; j < this.width; j++){
+
+        for (var i = 0; i < this.height; i++) {
+            for (var j = 0; j < this.width; j++) {
                 c.beginPath();
 
                 var circleX = this.x + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * j;
                 var circleY = this.y + this.margin + this.circleRadius + (2 * this.circleRadius + this.margin) * i;
+
+                if (this.board[j][i] === 0) {
+                    c.strokeStyle = "white";
+                    c.fillStyle = "white";
+                } else if (this.board[j][i] === 1) {
+                    c.strokeStyle = "red";
+                    c.fillStyle = "red";
+                } else if (this.board[j][i] === 2) {
+                    c.strokeStyle = "yellow";
+                    c.fillStyle = "yellow";
+                }
 
                 c.arc(circleX, circleY, this.circleRadius, 0, Math.PI * 2);
                 c.fill();
@@ -94,7 +106,7 @@ function GameBoard(x, y, width, height){
         }
         console.log(this.board);
 
-        
+
     }
 }
 
