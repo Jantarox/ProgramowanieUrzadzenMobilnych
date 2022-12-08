@@ -51,7 +51,7 @@ function GameBoard(x, y, width, height) {
     this.height = height;
 
     this.board = [];
-    this.circleRadius = 20;
+    this.circleRadius = 25;
     this.margin = 20;
 
     this.init = function () {
@@ -63,9 +63,6 @@ function GameBoard(x, y, width, height) {
             }
             this.board.push(row);
         }
-        console.log(this.board);
-        this.board[0][1] = 2;
-        this.board[3][2] = 1;
     }
 
     this.draw = function () {
@@ -116,7 +113,7 @@ function drawRects() {
 }
 
 var circle;
-var gameBoard = new GameBoard(50, 50, 7, 6);
+var gameBoard = new GameBoard(150, 150, 7, 6);
 gameBoard.init();
 
 function draw() {
