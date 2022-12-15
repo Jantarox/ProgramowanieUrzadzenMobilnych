@@ -150,6 +150,10 @@ function GameBoard(x, y, width, height) {
                     this.board[j][i] = this.blackTurn ? 1 : 2;
                     this.blackTurn = !this.blackTurn;
                     this.text = this.blackTurn ? "Blacks turn" : "Whites turn";
+                    this.checkForCapture(j+1, i);
+                    this.checkForCapture(j-1, i);
+                    this.checkForCapture(j, i+1);
+                    this.checkForCapture(j, i-1);
                     return;
                 }
             }
@@ -157,6 +161,7 @@ function GameBoard(x, y, width, height) {
     }
 
     this.checkForCapture = function(x, y){
+        if(x < 0 || x >= this.width || y < 0 || y >= this.height) return;
         var color = this.board[x][y];
         if(color === 0) return;
 
