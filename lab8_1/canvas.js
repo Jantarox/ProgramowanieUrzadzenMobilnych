@@ -166,22 +166,29 @@ function GameBoard(x, y, width, height) {
         var color = this.board[x][y];
         if(color === 0) return;
 
-        var neighbours = this.getNeighboursWithSameColor(x, y);
+        this.getNeighboursWithSameColor(x, y);
 
+        var capture = true;
+        this.neighbours.every(stone => {
+            if(this.checkIfEmpty(stone.x+1, stone.y)) capture = false;
+            if(this.checkIfEmpty(stone.x-1, stone.y)) capture = false;
+            if(this.checkIfEmpty(stone.x, stone.y+1)) capture = false;
+            if(this.checkIfEmpty(stone.x, stone.y-1)) capture = false;
+            return capture;
+        });
+        console.log(capture);
 
-        var hasChanged = true;
-        while(hasChanged){
-            hasChanged = false;
-            
-        }
+    }
 
+    this.checkIfEmpty = function(x, y){
+        if(x < 0 || x >= this.width || y < 0 || y >= this.height) return;
+        return this.board[x][y] === 0; 
     }
 
     this.getNeighboursWithSameColor = function(x, y){
         var color = this.board[x][y]
         this.neighbours = [];
         this.addNeighbour(x, y, color);
-        console.log(this.neighbours);
     }
 
     this.addNeighbour = function(x, y, color){
