@@ -183,6 +183,13 @@ function GameBoard(x, y, width, height) {
 
     this.getNeighboursWithSameColor = function(x, y){
         var color = this.board[x][y]
+        var neighbours = [];
+
+        addNeighbour = function(x, y){
+            if(x < 0 || x >= this.width || y < 0 || y >= this.height) return;
+            if(this.board[x][y] !== color) return;
+            if(neighbours.some((stone) => stone.x === x && stone.y === y)) return;
+        }
 
     }
 
