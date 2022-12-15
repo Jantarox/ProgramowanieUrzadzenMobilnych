@@ -205,16 +205,6 @@ function GameBoard(x, y, width, height) {
         this.addNeighbour(x, y+1, color);
         this.addNeighbour(x, y-1, color);
     }
-
-    this.endGame = function (draw) {
-        this.gameInProgress = false;
-        if(draw)
-            this.text = "Draw!";
-        else if (this.redTurn)
-            this.text = "Red wins!";
-        else
-            this.text = "Yellow wins!";
-    }
 }
 
 pythagoras = function(x1, y1, x2, y2) {
