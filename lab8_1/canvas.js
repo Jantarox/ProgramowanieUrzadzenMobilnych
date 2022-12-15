@@ -9,18 +9,6 @@ setInterval(draw, 10);
 var i = 0;
 var di = 1;
 
-document.addEventListener('keydown', (event) => {
-    const key = event.key;
-
-    if (key === "ArrowLeft") {
-        gameBoard.moveNewCircleLeft();
-    } else if (key === "ArrowRight") {
-        gameBoard.moveNewCircleRight();
-    } else if (key === " ") {
-        gameBoard.dropCircle();
-    }
-})
-
 document.addEventListener('mousedown', (event) => {
     const button = event.button;
 
