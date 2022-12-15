@@ -176,7 +176,10 @@ function GameBoard(x, y, width, height) {
             if(this.checkIfEmpty(stone.x, stone.y-1)) capture = false;
             return capture;
         });
-        console.log(capture);
+        
+        if(capture){
+            this.neighbours.forEach(stone => this.board[stone.x][stone.y] = 0);
+        }
 
     }
 
