@@ -168,16 +168,6 @@ function GameBoard(x, y, width, height) {
 
         var neighbours = this.getNeighboursWithSameColor(x, y);
 
-        for (var i = 0; i < this.width; i++) {
-            var row = [];
-            for (var j = 0; j < this.height; j++) {
-                if(this.board[i][j] !== 0)
-                    row.push(false);
-                else
-                    row.push(true);
-            }
-            this.hasLiberty.push(row);
-        }
 
         var hasChanged = true;
         while(hasChanged){
@@ -190,7 +180,7 @@ function GameBoard(x, y, width, height) {
     this.getNeighboursWithSameColor = function(x, y){
         var color = this.board[x][y]
         this.neighbours = [];
-        this.addNeighbour(x, y);
+        this.addNeighbour(x, y, color);
         console.log(this.neighbours);
     }
 
