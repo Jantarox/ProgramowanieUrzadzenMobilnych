@@ -65,6 +65,7 @@ function GameBoard(x, y, width, height) {
     this.blackTurn = true;
 
     this.text = "Blacks turn";
+    this.neighbours = [];
 
     this.init = function () {
 
@@ -188,22 +189,21 @@ function GameBoard(x, y, width, height) {
 
     this.getNeighboursWithSameColor = function(x, y){
         var color = this.board[x][y]
-        var neighbours = [];
+        this.neighbours = [];
+        this.addNeighbour(x, y);
+        console.log(this.neighbours);
+    }
 
-        addNeighbour = function(x, y){
-            if(x < 0 || x >= this.width || y < 0 || y >= this.height) return;
-            if(this.board[x][y] !== color) return;
-            if(neighbours.some((stone) => stone.x === x && stone.y === y)) return;
+    this.addNeighbour = function(x, y, color){
+        if(x < 0 || x >= this.width || y < 0 || y >= this.height) return;
+        if(this.board[x][y] !== color) return;
+        if(this.neighbours.some((stone) => stone.x === x && stone.y === y)) return;
 
-            neighbours.push({x: x, y: y});
-            addNeighbour(x+1, y);
-            addNeighbour(x-1, y);
-            addNeighbour(x, y+1);
-            addNeighbour(x, y-1);
-        }
-
-        addNeighbour(x, y);
-        console.log(neighbours);
+        this.neighbours.push({x: x, y: y});
+        this.addNeighbour(x+1, y, color);
+        this.addNeighbour(x-1, y, color);
+        this.addNeighbour(x, y+1, color);
+        this.addNeighbour(x, y-1, color);
     }
 
     this.endGame = function (draw) {
