@@ -189,8 +189,16 @@ function GameBoard(x, y, width, height) {
             if(x < 0 || x >= this.width || y < 0 || y >= this.height) return;
             if(this.board[x][y] !== color) return;
             if(neighbours.some((stone) => stone.x === x && stone.y === y)) return;
+
+            neighbours.push({x: x, y: y});
+            addNeighbour(x+1, y);
+            addNeighbour(x-1, y);
+            addNeighbour(x, y+1);
+            addNeighbour(x, y-1);
         }
 
+        addNeighbour(x, y);
+        console.log(neighbours);
     }
 
     this.endGame = function (draw) {
