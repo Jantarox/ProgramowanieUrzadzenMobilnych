@@ -156,9 +156,12 @@ function GameBoard(x, y, width, height) {
         }
     }
 
-    this.checkForCapture = function(){
+    this.checkForCapture = function(x, y){
+        var color = this.board[x][y];
+        if(color === 0) return;
 
-        var hasLiberty = []
+        var neighbours = this.getNeighboursWithSameColor(x, y);
+
         for (var i = 0; i < this.width; i++) {
             var row = [];
             for (var j = 0; j < this.height; j++) {
@@ -175,6 +178,11 @@ function GameBoard(x, y, width, height) {
             hasChanged = false;
             
         }
+
+    }
+
+    this.getNeighboursWithSameColor = function(x, y){
+        var color = this.board[x][y]
 
     }
 
